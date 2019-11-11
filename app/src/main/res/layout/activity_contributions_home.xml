@@ -12,10 +12,13 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:gravity="center"
-            android:id="@+id/cart_count"
+            android:id="@+id/total_amount"
+            android:padding= "@dimen/padding_medium"
             android:layout_margin="10dp"
-            android:padding="@dimen/padding_small"
+
            />
 
     <LinearLayout

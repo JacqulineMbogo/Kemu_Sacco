@@ -54,6 +54,7 @@ public class ContributionRes {
         @Expose
         private String contributionTypeId;
 
+
         public String getContributionId() {
             return contributionId;
         }

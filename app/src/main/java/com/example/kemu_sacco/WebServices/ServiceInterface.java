@@ -3,6 +3,7 @@ package com.example.kemu_sacco.WebServices;
 
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
+import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 
 import okhttp3.RequestBody;
@@ -39,6 +40,17 @@ public interface ServiceInterface {
     Call<ContributionRes> ContributionCall(
             @Part("securecode") RequestBody securecode,
             @Part("user_id") RequestBody user_id
+    );
+
+    /// save new contributions
+    @Multipart
+    @POST("kemu_sacco/save_new_contributions.php")
+    Call<SaveContributionRes> SaveContributionCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("contribution_type_id") RequestBody contribution_type_id,
+            @Part("amount") RequestBody amount,
+            @Part("user_id") RequestBody user_id,
+            @Part("code") RequestBody code
     );
 
 

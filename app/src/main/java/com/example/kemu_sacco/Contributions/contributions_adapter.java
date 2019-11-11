@@ -20,6 +20,8 @@ public class contributions_adapter  extends RecyclerView.Adapter<RecyclerView.Vi
     private List<contributions_model> contributions_models;
     private Context mContext;
     private String TAG ="contributionsAdapter";
+
+
     public contributions_adapter (Context context, List<contributions_model> contributionModels){
         this.contributions_models = contributionModels;
         this.mContext = context;
@@ -38,12 +40,9 @@ public class contributions_adapter  extends RecyclerView.Adapter<RecyclerView.Vi
             amount =  itemView.findViewById(R.id.amount);
             contribution_date =  itemView.findViewById(R.id.contribution_date);
 
-
-
-
         }
     }
-    @NonNull
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_contributions_adapter, parent,false);
@@ -59,7 +58,6 @@ public class contributions_adapter  extends RecyclerView.Adapter<RecyclerView.Vi
         ((contributionsView) holder).contribution_type.setText(model.getContribution_type_id());
         ((contributionsView) holder).amount.setText(model.getAmount());
         ((contributionsView) holder).contribution_date.setText(model.getContribution_date());
-        ((contributionsView) holder).contribution_id.setText(model.getContribution_id());
 
 
 
@@ -67,6 +65,7 @@ public class contributions_adapter  extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return 0;
+        // return 0;
+        return contributions_models.size();
     }
 }

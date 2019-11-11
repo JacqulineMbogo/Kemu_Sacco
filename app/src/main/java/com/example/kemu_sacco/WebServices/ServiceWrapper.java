@@ -5,6 +5,7 @@ import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
+import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -71,6 +72,11 @@ public class ServiceWrapper  {
     ///  get all contributions
     public Call<ContributionRes> ContributionCall(String securecode, String user_id){
         return mServiceInterface.ContributionCall(convertPlainString(securecode), convertPlainString(user_id));
+    }
+
+    ///  user signin
+    public Call<SaveContributionRes> SaveContributionCall(String securecode,String contribution_type_id,String amount, String user_id, String code){
+        return mServiceInterface.SaveContributionCall(convertPlainString(securecode),convertPlainString(contribution_type_id),convertPlainString(amount), convertPlainString(user_id), convertPlainString(code));
     }
 
 
