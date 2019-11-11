@@ -3,6 +3,7 @@ package com.example.kemu_sacco.WebServices;
 
 import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
+import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 import com.google.gson.Gson;
@@ -65,6 +66,11 @@ public class ServiceWrapper  {
     ///  user signin
     public Call<UserSignInRes> UserSigninCall(String id_number, String password){
         return mServiceInterface.UserSigninCall(convertPlainString(id_number), convertPlainString(password));
+    }
+
+    ///  get all contributions
+    public Call<ContributionRes> ContributionCall(String securecode, String user_id){
+        return mServiceInterface.ContributionCall(convertPlainString(securecode), convertPlainString(user_id));
     }
 
 

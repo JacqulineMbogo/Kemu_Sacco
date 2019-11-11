@@ -18,6 +18,10 @@
     <string name="retype_password">Confirm password</string>
     <string name="existing">Existing User?</string>
 
-    <string name="contribution">Contributions</string>
+    <string name="contribution">Savings</string>
     <string name="loans">Loans</string>
+    <string name="add_contribution">Add Savings</string>
+    <string name="contribution_type">Contribution Type</string>
+    <string name="amount">amount</string>
+    <string name="date">Date</string>
 </resources>

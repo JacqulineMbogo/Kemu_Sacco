@@ -1,6 +1,7 @@
 package com.example.kemu_sacco.WebServices;
 
 
+import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 
@@ -30,6 +31,14 @@ public interface ServiceInterface {
     Call<UserSignInRes> UserSigninCall(
             @Part("id_number") RequestBody id_number,
             @Part("password") RequestBody password
+    );
+
+    ///  get all contributions
+    @Multipart
+    @POST("kemu_sacco/get_all_contributions.php")
+    Call<ContributionRes> ContributionCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("user_id") RequestBody user_id
     );
 
 
