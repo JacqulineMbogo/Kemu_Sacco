@@ -3,7 +3,6 @@ package com.example.kemu_sacco.Contributions;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.kemu_sacco.MainActivity;
 import com.example.kemu_sacco.R;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
@@ -46,6 +45,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.kemu_sacco.R.id.text;
+import static com.example.kemu_sacco.R.layout.spinner;
+
 public class contributions_home extends AppCompatActivity {
 
 
@@ -62,8 +64,7 @@ public class contributions_home extends AppCompatActivity {
 
     private  contributions_type_adapter  contributions_type_adapter;
     private ArrayList<contributions_type_model> contributionsTypeModels = new ArrayList<>();
-
-    private ArrayList<String> contributionTypes = new ArrayList<String>();
+    private String pin,selectedItemText;
 
 
     @Override
@@ -122,12 +123,52 @@ public class contributions_home extends AppCompatActivity {
                 final EditText code = view.findViewById(R.id.code);
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
-                final Spinner contributiontypespinner = view.findViewById(R.id.contributiontypespinner);
+                final Spinner spinner  = view.findViewById(R.id.contributiontypespinner);
+
+             //   getContributionTypes();
+
+                String[] contributions=getResources().getStringArray(R.array.contribution_types);
+
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(context, R.layout.spinner, text, contributions);
+
+                spinner.setAdapter(adapter);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        selectedItemText = (String) parent.getItemAtPosition(position);
+                        // Notify the selected item text
 
 
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(contributions_home.this, android.R.layout.simple_spinner_dropdown_item, contributionTypes);
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-                contributiontypespinner.setAdapter(spinnerArrayAdapter);
+                        if (selectedItemText.equals("Education Fund")) {
+
+                            pin = "1";
+                        } else if (selectedItemText.equals("Children Fund")) {
+
+                            pin = "2";
+                        } else if (selectedItemText.equals("Christmas Fund")) {
+
+                            pin = "3";
+                        } else if (selectedItemText.equals("Leave Fund")) {
+
+                            pin = "4";
+                        } else if (selectedItemText.equals("Recreation Fund")) {
+
+                            pin = "5";
+                        } else if (selectedItemText.equals("Retirement Fund")) {
+
+                            pin = "6";
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
 
                 amount.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -151,7 +192,7 @@ public class contributions_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveNewContribution("12", amount.getText().toString(), code.getText().toString());
+                        saveNewContribution(pin, amount.getText().toString(), code.getText().toString());
                         dialog.cancel();
                     }
                 });
@@ -329,11 +370,8 @@ public class contributions_home extends AppCompatActivity {
                                     contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
 
 
-
                                 }
                                 contributions_type_adapter.notifyDataSetChanged();
-
-
 
                             }
 
