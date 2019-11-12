@@ -29,4 +29,8 @@
     <string name="network_not_connected">No Internet Connection</string>
     <string name="successful_add_savings">Successfully made your contribution</string>
     <string name="code">Mpesa Code</string>
+
+    <string-array name="contribution_types">
+
+    </string-array>
 </resources>

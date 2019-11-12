@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,8 @@ public class contributions_home extends AppCompatActivity {
 
     private  contributions_type_adapter  contributions_type_adapter;
     private ArrayList<contributions_type_model> contributionsTypeModels = new ArrayList<>();
+
+    private ArrayList<String> contributionTypes = new ArrayList<String>();
 
 
     @Override
@@ -119,7 +122,12 @@ public class contributions_home extends AppCompatActivity {
                 final EditText code = view.findViewById(R.id.code);
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
+                final Spinner contributiontypespinner = view.findViewById(R.id.contributiontypespinner);
 
+
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(contributions_home.this, android.R.layout.simple_spinner_dropdown_item, contributionTypes);
+                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+                contributiontypespinner.setAdapter(spinnerArrayAdapter);
 
                 amount.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -321,8 +329,10 @@ public class contributions_home extends AppCompatActivity {
                                     contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
 
 
+
                                 }
                                 contributions_type_adapter.notifyDataSetChanged();
+
 
 
                             }
