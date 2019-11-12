@@ -2,6 +2,7 @@ package com.example.kemu_sacco.WebServices;
 
 
 import com.example.kemu_sacco.beanResponse.ContributionRes;
+import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
@@ -51,6 +52,14 @@ public interface ServiceInterface {
             @Part("amount") RequestBody amount,
             @Part("user_id") RequestBody user_id,
             @Part("code") RequestBody code
+    );
+
+    ///  get all contributions types
+    @Multipart
+    @POST("kemu_sacco/get_contribution_types.php")
+    Call<ContributionTypeRes> ContributionTypeCall(
+            @Part("securecode") RequestBody securecode
+
     );
 
 

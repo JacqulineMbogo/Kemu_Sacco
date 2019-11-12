@@ -4,6 +4,7 @@ package com.example.kemu_sacco.WebServices;
 import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
+import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
@@ -77,6 +78,12 @@ public class ServiceWrapper  {
     ///  user signin
     public Call<SaveContributionRes> SaveContributionCall(String securecode,String contribution_type_id,String amount, String user_id, String code){
         return mServiceInterface.SaveContributionCall(convertPlainString(securecode),convertPlainString(contribution_type_id),convertPlainString(amount), convertPlainString(user_id), convertPlainString(code));
+    }
+
+
+    ///  get all contributions types
+    public Call<ContributionTypeRes> ContributionTypeCall(String securecode){
+        return mServiceInterface.ContributionTypeCall(convertPlainString(securecode));
     }
 
 

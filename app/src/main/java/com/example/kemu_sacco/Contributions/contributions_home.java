@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -33,6 +34,7 @@ import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
+import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -57,8 +59,8 @@ public class contributions_home extends AppCompatActivity {
     private  contributions_adapter  contributions_adapter;
     private ArrayList<contributions_model> contributionsModels = new ArrayList<>();
 
-    private ArrayList<contribution_type_model> contributiontypeModelArrayList;
-    private ArrayList<String> contributiontypeNames = new ArrayList<String>();
+    private  contributions_type_adapter  contributions_type_adapter;
+    private ArrayList<contributions_type_model> contributionsTypeModels = new ArrayList<>();
 
 
     @Override
@@ -81,12 +83,14 @@ public class contributions_home extends AppCompatActivity {
         contributions_adapter= new contributions_adapter(context, contributionsModels);
         collection_recycler.setAdapter(contributions_adapter);
 
+        contributions_type_adapter= new contributions_type_adapter(contributionsTypeModels, context);
 
         new_contribution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
+                getContributionTypes();
 
                 final Dialog dialog;
 
@@ -277,9 +281,74 @@ public class contributions_home extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public  void getContributionTypes(){
+
+        progressbar.setVisibility(View.VISIBLE);
+
+        if (!NetworkUtility.isNetworkConnected(contributions_home.this)) {
+            progressbar.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG).show();
 
 
+        } else {
+            progressbar.setVisibility(View.GONE);
+            //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+            ServiceWrapper service = new ServiceWrapper(null);
+            Call<ContributionTypeRes> call = service.ContributionTypeCall("1234");
 
+            call.enqueue(new Callback<ContributionTypeRes>() {
+                @Override
+                public void onResponse(Call<ContributionTypeRes> call, Response<ContributionTypeRes> response) {
+                    Log.e(TAG, "responsez is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
+                    Log.e(TAG, "  ss sixe 1 ");
+                    if (response.body() != null && response.isSuccessful()) {
+
+                        Log.e(TAG, "  ss sixe 2 ");
+                        if (response.body().getStatus() == 1) {
+                            Log.e(TAG, "  ss sixe 3 ");
+
+
+                            if (response.body().getInformation().size()>0){
+
+                                progressbar.setVisibility(View.GONE);
+
+                             contributionsTypeModels.clear();
+                                for (int i =0; i<response.body().getInformation().size(); i++){
+
+
+                                    contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
+
+
+                                }
+                                contributions_type_adapter.notifyDataSetChanged();
+
+
+                            }
+
+                        } else {
+                            progressbar.setVisibility(View.GONE);
+                            AppUtilits.displayMessage(contributions_home.this, response.body().getMsg());
+                        }
+                    } else {
+                        progressbar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ContributionTypeRes> call, Throwable t) {
+                    progressbar.setVisibility(View.GONE);
+
+                    Toast.makeText(getApplicationContext(), "please try again. Failed to get user contributions ", Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+
+        }
 
 
     }
