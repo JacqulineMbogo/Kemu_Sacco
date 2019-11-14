@@ -1,14 +1,25 @@
 package com.example.kemu_sacco.Loans;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,6 +78,79 @@ public class loans_home extends AppCompatActivity {
         loans_adapter= new loans_adapter(loansModels, context );
         loan_recycler.setAdapter(loans_adapter);
 
+        new_loan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                getUserLoans();
+
+                final Dialog dialog;
+
+                view = LayoutInflater.from(context).inflate(R.layout.loan_popup, null, false);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+
+                alertDialog.setView(view);
+
+                alertDialog.setCancelable(true);
+
+
+                dialog = alertDialog.create();
+
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+                dialog.show();
+
+
+                final Window dialogWindow = dialog.getWindow();
+                dialogWindow.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                dialogWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+
+
+                final EditText amount = view.findViewById(R.id.contributionamount);
+                final Button cancel = view.findViewById(R.id.cancel);
+                final Button okay = view.findViewById(R.id.ok);
+                final Spinner spinner  = view.findViewById(R.id.loantypespinner);
+
+
+
+
+                amount.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+
+
+                    }
+                });
+
+                okay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialog.cancel();
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
+            }
+        });
 
         getUserLoans();
 
