@@ -33,6 +33,7 @@ import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
+import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
@@ -138,7 +139,7 @@ public class loans_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        saveLoanApplication("Loan Type", amount.getText().toString());
                         dialog.cancel();
                     }
                 });
@@ -153,6 +154,51 @@ public class loans_home extends AppCompatActivity {
         });
 
         getUserLoans();
+
+    }
+
+    public void saveLoanApplication(String loantype, String amount){
+
+        if (!NetworkUtility.isNetworkConnected(loans_home.this)){
+            AppUtilits.displayMessage(loans_home.this,  getString(R.string.network_not_connected));
+
+        }else {
+
+            //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+            ServiceWrapper service = new ServiceWrapper(null);
+            Call<NewLoanApplicationRes> call = service.SaveNewLoanCall("12345", loantype,amount, sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            call.enqueue(new Callback<NewLoanApplicationRes>() {
+                @Override
+                public void onResponse(Call<NewLoanApplicationRes> call, Response<NewLoanApplicationRes> response) {
+
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getStatus() == 1) {
+
+
+                            AppUtilits.displayMessage(loans_home.this, getString(R.string.successful_add_loans));
+                            getUserLoans();
+
+
+                        }else {
+
+                            AppUtilits.displayMessage(loans_home.this, "failed to make new contribution");
+                        }
+                    }else {
+                        AppUtilits.displayMessage(loans_home.this, "network error");
+                    }
+
+
+                }
+
+                @Override
+                public void onFailure(Call<NewLoanApplicationRes> call, Throwable t) {
+                    // Log.e(TAG, "  fail- add to cart item "+ t.toString());
+
+                    AppUtilits.displayMessage(loans_home.this, "Your loan application has failed");
+                }
+            });
+        }
+
 
     }
 

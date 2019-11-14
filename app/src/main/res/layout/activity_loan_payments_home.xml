@@ -88,7 +88,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/new_contribution"
+            android:id="@+id/new_payment"
             android:src="@drawable/ic_add_new_plus"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

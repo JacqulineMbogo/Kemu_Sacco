@@ -7,6 +7,8 @@ import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
+import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
+import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
@@ -77,7 +79,7 @@ public class ServiceWrapper  {
         return mServiceInterface.ContributionCall(convertPlainString(securecode), convertPlainString(user_id));
     }
 
-    ///  user signin
+    ///  new contribution
     public Call<SaveContributionRes> SaveContributionCall(String securecode,String contribution_type_id,String amount, String user_id, String code){
         return mServiceInterface.SaveContributionCall(convertPlainString(securecode),convertPlainString(contribution_type_id),convertPlainString(amount), convertPlainString(user_id), convertPlainString(code));
     }
@@ -96,6 +98,16 @@ public class ServiceWrapper  {
     ///  get all loan payments
     public Call<LoanPaymentsRes> LoanPaymentCall(String securecode, String user_id, String application_id){
         return mServiceInterface.LoanPaymentCall(convertPlainString(securecode), convertPlainString(user_id),  convertPlainString(application_id));
+    }
+
+    ///  new loan
+    public Call<NewLoanApplicationRes> SaveNewLoanCall(String securecode, String loan_type_id, String amount, String user_id){
+        return mServiceInterface.SaveNewLoanCall(convertPlainString(securecode),convertPlainString(loan_type_id),convertPlainString(amount), convertPlainString(user_id));
+    }
+
+    ///  make loan payment
+    public Call<MakeLoanPaymentRes> MakeLoanPaymentCall(String securecode, String application_id, String amount, String user_id){
+        return mServiceInterface.MakeLoanPaymentCall(convertPlainString(securecode),convertPlainString(application_id),convertPlainString(amount), convertPlainString(user_id));
     }
 
     // convert aa param into plain text

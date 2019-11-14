@@ -5,6 +5,8 @@ import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
+import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
+import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
@@ -79,6 +81,28 @@ public interface ServiceInterface {
             @Part("securecode") RequestBody securecode,
             @Part("user_id") RequestBody user_id,
             @Part("application_id") RequestBody application_id
+    );
+
+    /// save new loan
+    @Multipart
+    @POST("kemu_sacco/new_loan_application.php")
+    Call<NewLoanApplicationRes> SaveNewLoanCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("loan_type_id") RequestBody loan_type_id,
+            @Part("amount") RequestBody amount,
+            @Part("user_id") RequestBody user_id
+
+    );
+
+    /// loan payment
+    @Multipart
+    @POST("kemu_sacco/new_loan_payment.php")
+    Call<MakeLoanPaymentRes> MakeLoanPaymentCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("application_id") RequestBody application_id,
+            @Part("amount") RequestBody amount,
+            @Part("user_id") RequestBody user_id
+
     );
 
 

@@ -303,14 +303,6 @@ public class contributions_home extends AppCompatActivity {
 
                           AppUtilits.displayMessage(contributions_home.this, getString(R.string.successful_add_savings));
                             getAllContributions();
-                         /*   sharedPreferenceActivity.putItem(Constant.QUOTE_ID, response.body().getInformation().getQouteId());
-
-                            sharedPreferenceActivity.putItem( Constant.CART_ITEM_COUNT,  String.valueOf( response.body().getInformation().getCartCount()));
-
-                            //  AppUtilits.UpdateCartCount(ProductDetails.this,mainmenu);
-                            Intent intent = new Intent(contributions_home.this , MainActivity. class);
-                            startActivity(intent);
-                            */
 
 
                         }else {
