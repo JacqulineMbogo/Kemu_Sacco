@@ -88,7 +88,7 @@ public class loan_payments_home extends AppCompatActivity {
 
                 final Dialog dialog;
 
-                view = LayoutInflater.from(context).inflate(R.layout.loan_popup, null, false);
+                view = LayoutInflater.from(context).inflate(R.layout.payment_popup, null, false);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
 
                 alertDialog.setView(view);

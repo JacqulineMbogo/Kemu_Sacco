@@ -35,6 +35,7 @@
     <string name="payment_id">Payment Id</string>
     <string name="new_payment">New Payment</string>
     <string name="loan_type">Loan Type</string>
+    <string name="loanpayment">Loan Payment</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>
