@@ -35,7 +35,8 @@ import retrofit2.Response;
 public class loan_payments_home extends AppCompatActivity {
 
     Context context;
-    String application_id;
+    String application_id, loan_amount;
+    Integer balance, overpaymnet;
 
     RecyclerView loanpayments_recycler;
     TextView total_payments;
@@ -58,6 +59,7 @@ public class loan_payments_home extends AppCompatActivity {
         final Intent intent = getIntent();
         sharedPreferenceActivity = new SharedPreferenceActivity(context);
         application_id = intent.getExtras().getString("application_id");
+        loan_amount= intent.getExtras().getString("loan_amount");
 
         loanpayments_recycler = findViewById(R.id.loanpayments_recycler);
         progressbar = findViewById(R.id.progressBar);
@@ -105,10 +107,21 @@ public class loan_payments_home extends AppCompatActivity {
 
                             if (response.body().getInformation().size()>0){
 
+                                balance = Integer.valueOf(loan_amount) - Integer.valueOf(response.body().getMsg());
+                                overpaymnet = Integer.valueOf(response.body().getMsg()) - Integer.valueOf(loan_amount);
                                 progressbar.setVisibility(View.GONE);
 
-                                total_payments.setText("Total payments received for this loan  is Ksh " + response.body().getMsg() );
+                                        if(balance > 0) {
 
+                                    total_payments.setText("Total payments received for this loan  is Ksh " + response.body().getMsg() + " " +"Remaining balance is " + balance);
+                                                    }else if(balance<0 ){
+
+                                            total_payments.setText("Total payments received for this loan  is Ksh " + response.body().getMsg() +  " " + "You have an overpayment of " + overpaymnet);
+                                        }else {
+
+                                            total_payments.setText("Total payments received for this loan  is Ksh " + response.body().getMsg() + " " +"Your loan is fully settled");
+
+                                        }
 
                                 loanPaymentModels.clear();
                                 for (int i =0; i<response.body().getInformation().size(); i++){

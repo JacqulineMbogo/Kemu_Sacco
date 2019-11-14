@@ -72,6 +72,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 Intent intent = new Intent(mContext,loan_payments_home.class);
                 intent.putExtra("application_id", model.getApplication_id());
+                intent.putExtra("loan_amount", model.getAmount());
                 mContext.startActivity(intent);
             }
         });
