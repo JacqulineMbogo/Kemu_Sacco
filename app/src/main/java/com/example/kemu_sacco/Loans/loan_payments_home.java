@@ -1,6 +1,7 @@
 package com.example.kemu_sacco.Loans;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,14 +15,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.kemu_sacco.Contributions.contributions_adapter;
+import com.example.kemu_sacco.Contributions.contributions_home;
 import com.example.kemu_sacco.R;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
-import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
+import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
@@ -31,52 +32,55 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class loans_home extends AppCompatActivity {
+public class loan_payments_home extends AppCompatActivity {
 
     Context context;
-    RecyclerView loan_recycler;
-    TextView total_loans;
-    FloatingActionButton new_loan;
-    ProgressBar progressbar;
-    String TAG = "loans";
-    SharedPreferenceActivity sharedPreferenceActivity;
-    private  loans_adapter loans_adapter;
-    private ArrayList<loans_model> loansModels = new ArrayList<>();
+    String application_id;
 
+    RecyclerView loanpayments_recycler;
+    TextView total_payments;
+    FloatingActionButton new_contribution;
+    ProgressBar progressbar;
+    String TAG = "contriutions";
+    SharedPreferenceActivity sharedPreferenceActivity;
+    private  loan_payments_adapter  loan_payments_adapter;
+    private ArrayList<loan_payment_model> loanPaymentModels= new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_loan_payments_home);
 
-        setContentView(R.layout.activity_loans_home);
+        context = this;
 
-        context= this;
+        this.setTitle("My Loan Payments");
+
+        final Intent intent = getIntent();
         sharedPreferenceActivity = new SharedPreferenceActivity(context);
+        application_id = intent.getExtras().getString("application_id");
 
-        this.setTitle("My loans Activity");
-
-       loan_recycler = findViewById(R.id.loans_recycler);
+        loanpayments_recycler = findViewById(R.id.loanpayments_recycler);
         progressbar = findViewById(R.id.progressBar);
-        new_loan = findViewById(R.id.new_loan);
-        total_loans = findViewById(R.id.total_loans);
+        new_contribution = findViewById(R.id.new_contribution);
+        total_payments= findViewById(R.id.total_payment);
+
 
         LinearLayoutManager mLayoutManger = new LinearLayoutManager( context, RecyclerView.VERTICAL, false);
-       loan_recycler.setLayoutManager(mLayoutManger);
-        loan_recycler.setItemAnimator(new DefaultItemAnimator());
+        loanpayments_recycler.setLayoutManager(mLayoutManger);
+       loanpayments_recycler.setItemAnimator(new DefaultItemAnimator());
 
-        loans_adapter= new loans_adapter(loansModels, context );
-        loan_recycler.setAdapter(loans_adapter);
+        loan_payments_adapter= new loan_payments_adapter(loanPaymentModels, context);
+       loanpayments_recycler.setAdapter(loan_payments_adapter);
 
 
-        getUserLoans();
+       getLoanPayments();
 
     }
-
-    public void getUserLoans(){
+    public  void  getLoanPayments(){
 
         progressbar.setVisibility(View.VISIBLE);
 
-        if (!NetworkUtility.isNetworkConnected(loans_home.this)) {
+        if (!NetworkUtility.isNetworkConnected(loan_payments_home.this)) {
             progressbar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG).show();
 
@@ -85,11 +89,11 @@ public class loans_home extends AppCompatActivity {
             progressbar.setVisibility(View.GONE);
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<LoansApplicationRes> call = service.LoansCall("1234", sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            Call<LoanPaymentsRes> call = service.LoanPaymentCall("1234", sharedPreferenceActivity.getItem(Constant.USER_DATA),application_id);
 
-            call.enqueue(new Callback<LoansApplicationRes>() {
+            call.enqueue(new Callback<LoanPaymentsRes>() {
                 @Override
-                public void onResponse(Call<LoansApplicationRes> call, Response<LoansApplicationRes> response) {
+                public void onResponse(Call<LoanPaymentsRes> call, Response<LoanPaymentsRes> response) {
                     Log.e(TAG, "response is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
                     Log.e(TAG, "  ss sixe 1 ");
                     if (response.body() != null && response.isSuccessful()) {
@@ -103,22 +107,22 @@ public class loans_home extends AppCompatActivity {
 
                                 progressbar.setVisibility(View.GONE);
 
-                                total_loans.setText("Total loan amount is Ksh " + response.body().getMsg() );
+                                total_payments.setText("Total payments received for this loan  is Ksh " + response.body().getMsg() );
 
-                                sharedPreferenceActivity.putItem(Constant.TOTAL_CONTRIBUTIONS, String.valueOf(response.body().getMsg()));
-                                loansModels.clear();
+
+                                loanPaymentModels.clear();
                                 for (int i =0; i<response.body().getInformation().size(); i++){
 
 
-                                    loansModels.add(  new loans_model(response.body().getInformation().get(i).getApplicationId(),response.body().getInformation().get(i).getAmount(),response.body().getInformation().get(i).getDate(),response.body().getInformation().get(i).getStatus(),response.body().getInformation().get(i).getLoanId() ));
+                                    loanPaymentModels.add(  new loan_payment_model(response.body().getInformation().get(i).getPaymentId(),response.body().getInformation().get(i).getPaymentAmount(),response.body().getInformation().get(i).getCreateDate(),response.body().getInformation().get(i).getStatus()));
 
                                 }
-                               loans_adapter.notifyDataSetChanged();
+                                loan_payments_adapter.notifyDataSetChanged();
                             }
 
                         } else {
                             progressbar.setVisibility(View.GONE);
-                            AppUtilits.displayMessage(loans_home.this, response.body().getMsg());
+                            AppUtilits.displayMessage(loan_payments_home.this, response.body().getMsg());
                         }
                     } else {
                         progressbar.setVisibility(View.GONE);
@@ -128,7 +132,7 @@ public class loans_home extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<LoansApplicationRes> call, Throwable t) {
+                public void onFailure(Call<LoanPaymentsRes> call, Throwable t) {
                     progressbar.setVisibility(View.GONE);
 
                     Toast.makeText(getApplicationContext(), "please try again. Failed to get user contributions ", Toast.LENGTH_LONG).show();
@@ -138,6 +142,7 @@ public class loans_home extends AppCompatActivity {
 
 
         }
+
 
 
 

@@ -5,6 +5,8 @@ import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
+import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
@@ -86,6 +88,15 @@ public class ServiceWrapper  {
         return mServiceInterface.ContributionTypeCall(convertPlainString(securecode));
     }
 
+    ///  get all loans
+    public Call<LoansApplicationRes> LoansCall(String securecode, String user_id){
+        return mServiceInterface.LoansCall(convertPlainString(securecode), convertPlainString(user_id));
+    }
+
+    ///  get all loan payments
+    public Call<LoanPaymentsRes> LoanPaymentCall(String securecode, String user_id, String application_id){
+        return mServiceInterface.LoanPaymentCall(convertPlainString(securecode), convertPlainString(user_id),  convertPlainString(application_id));
+    }
 
     // convert aa param into plain text
     public RequestBody convertPlainString(String data){

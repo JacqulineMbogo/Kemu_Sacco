@@ -29,10 +29,13 @@
     <string name="network_not_connected">No Internet Connection</string>
     <string name="successful_add_savings">Successfully made your contribution</string>
     <string name="code">Mpesa Code</string>
+    <string name="requestloan">Request Loan</string>
+    <string name="payment_id">Payment Id</string>
+    <string name="new_payment">New Payment</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>
-        <item>Chilren Fund</item>
+        <item>Children Fund</item>
         <item>Christmas Fund</item>
         <item>Leave Fund</item>
         <item>Recreation Fund</item>

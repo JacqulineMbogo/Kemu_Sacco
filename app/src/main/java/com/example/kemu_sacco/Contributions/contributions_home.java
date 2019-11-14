@@ -57,7 +57,7 @@ public class contributions_home extends AppCompatActivity {
     TextView total_amount;
     FloatingActionButton new_contribution;
     ProgressBar progressbar;
-    String TAG = "flock_details";
+    String TAG = "contriutions";
     SharedPreferenceActivity sharedPreferenceActivity;
     private  contributions_adapter  contributions_adapter;
     private ArrayList<contributions_model> contributionsModels = new ArrayList<>();
@@ -73,6 +73,8 @@ public class contributions_home extends AppCompatActivity {
         setContentView(R.layout.activity_contributions_home);
 
         context = this;
+
+        this.setTitle("My Contributions");
 
         sharedPreferenceActivity = new SharedPreferenceActivity(context);
         collection_recycler = findViewById(R.id.collections_recycler);
@@ -372,6 +374,8 @@ public class contributions_home extends AppCompatActivity {
 
                                 }
                                 contributions_type_adapter.notifyDataSetChanged();
+
+
 
                             }
 

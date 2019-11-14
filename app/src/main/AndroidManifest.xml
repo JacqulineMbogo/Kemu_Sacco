@@ -27,6 +27,7 @@
         <activity android:name=".LogIn.SignUp"/>
         <activity android:name=".Contributions.contributions_home"/>
         <activity android:name=".Loans.loans_home"/>
+        <activity android:name=".Loans.loan_payments_home"/>
     </application>
 
 </manifest>

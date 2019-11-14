@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,11 +15,49 @@
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:gravity="center"
-        android:id="@+id/total_loans"
+        android:id="@+id/total_payment"
         android:padding= "@dimen/padding_medium"
         android:layout_margin="10dp"
 
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/padding_small"
+        android:paddingBottom="@dimen/padding_small">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textStyle="bold"
+            android:text="@string/payment_id"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/amount"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,7 +71,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/loans_recycler"
+            android:id="@+id/loanpayments_recycler"
             android:padding="@dimen/padding_small"
             android:layout_marginBottom="50dp">
 
@@ -49,7 +88,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/new_loan"
+            android:id="@+id/new_contribution"
             android:src="@drawable/ic_add_new_plus"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -66,7 +105,7 @@
             android:layout_marginRight="15dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="15dp"
-            android:text="@string/requestloan"
+            android:text="@string/new_payment"
             android:padding="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorAccent"
