@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kemu_sacco.R;
+import com.example.kemu_sacco.Spinner_Adapter;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.Utility.NetworkUtility;
@@ -40,12 +41,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.kemu_sacco.R.id.text;
+import static com.example.kemu_sacco.R.layout.activity_contributions_type_adapter;
 import static com.example.kemu_sacco.R.layout.spinner;
 
 public class contributions_home extends AppCompatActivity {
@@ -65,6 +68,10 @@ public class contributions_home extends AppCompatActivity {
     private  contributions_type_adapter  contributions_type_adapter;
     private ArrayList<contributions_type_model> contributionsTypeModels = new ArrayList<>();
     private String pin,selectedItemText;
+
+
+    private ArrayList<contribution_type_model> goodModelArrayList;
+    private ArrayList<String> contribution_type = new ArrayList<String>();
 
 
     @Override
@@ -95,8 +102,9 @@ public class contributions_home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                final View finalView = view;
 
-                getContributionTypes();
+
 
                 final Dialog dialog;
 
@@ -129,47 +137,96 @@ public class contributions_home extends AppCompatActivity {
 
              //   getContributionTypes();
 
-                String[] contributions=getResources().getStringArray(R.array.contribution_types);
-
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(context, R.layout.spinner, text, contributions);
-
-                spinner.setAdapter(adapter);
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        selectedItemText = (String) parent.getItemAtPosition(position);
-                        // Notify the selected item text
 
 
-                        if (selectedItemText.equals("Education Fund")) {
+                    progressbar.setVisibility(View.VISIBLE);
 
-                            pin = "1";
-                        } else if (selectedItemText.equals("Children Fund")) {
-
-                            pin = "2";
-                        } else if (selectedItemText.equals("Christmas Fund")) {
-
-                            pin = "3";
-                        } else if (selectedItemText.equals("Leave Fund")) {
-
-                            pin = "4";
-                        } else if (selectedItemText.equals("Recreation Fund")) {
-
-                            pin = "5";
-                        } else if (selectedItemText.equals("Retirement Fund")) {
-
-                            pin = "6";
+                    if (!NetworkUtility.isNetworkConnected(contributions_home.this)) {
+                        progressbar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG).show();
 
 
-                        }
+                    } else {
+                        progressbar.setVisibility(View.GONE);
+                        //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+                        ServiceWrapper service = new ServiceWrapper(null);
+                        Call<ContributionTypeRes> call = service.ContributionTypeCall("1234");
+
+
+                        call.enqueue(new Callback<ContributionTypeRes>() {
+                            @Override
+                            public void onResponse(Call<ContributionTypeRes> call, Response<ContributionTypeRes> response) {
+                                Log.e(TAG, "responsez is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
+                                Log.e(TAG, "  ss sixe 1 ");
+                                if (response.body() != null && response.isSuccessful()) {
+
+                                    Log.e(TAG, "  ss sixe 2 ");
+                                    if (response.body().getStatus() == 1) {
+                                        Log.e(TAG, "  ss sixe 3 ");
+
+
+                                        if (response.body().getInformation().size()>0){
+
+                                            progressbar.setVisibility(View.GONE);
+
+                                            contributionsTypeModels.clear();
+                                            String[] code = new String[response.body().getInformation().size()];
+                                            String[] name = new String[response.body().getInformation().size()];
+
+                                            for (int i =0; i<response.body().getInformation().size(); i++){
+
+
+                                               contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
+
+                                                code[i] = response.body().getInformation().get(i).getContributionTypeId();
+                                                name[i] = response.body().getInformation().get(i).getContributionType();
+
+
+                                                Spinner_Adapter spinnerAdapter = new Spinner_Adapter(context , code, name);
+                                                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                                spinner.setAdapter(spinnerAdapter);
+                                                spinnerAdapter.notifyDataSetChanged();
+
+
+
+                                            }
+
+                                         contributions_type_adapter.notifyDataSetChanged();
+
+
+
+
+
+
+
+                                        }
+
+
+
+                                    } else {
+                                        progressbar.setVisibility(View.GONE);
+                                        AppUtilits.displayMessage(contributions_home.this, response.body().getMsg());
+                                    }
+                                } else {
+                                    progressbar.setVisibility(View.GONE);
+                                    Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<ContributionTypeRes> call, Throwable t) {
+                                progressbar.setVisibility(View.GONE);
+
+                                Toast.makeText(getApplicationContext(), "please try again. Failed to get user contributions ", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+
+
                     }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
 
 
                 amount.addTextChangedListener(new TextWatcher() {
@@ -247,11 +304,14 @@ public class contributions_home extends AppCompatActivity {
 
                                 sharedPreferenceActivity.putItem(Constant.TOTAL_CONTRIBUTIONS, response.body().getMsg());
                                contributionsModels.clear();
+
+
                                 for (int i =0; i<response.body().getInformation().size(); i++){
 
 
                                     contributionsModels.add(  new contributions_model(response.body().getInformation().get(i).getContributionId(),response.body().getInformation().get(i).getAmount(),response.body().getInformation().get(i).getContributionDate(),response.body().getInformation().get(i).getContributionTypeId()));
                                     Log.d("model",response.body().getInformation().get(i).getContributionId() );
+
 
                                 }
                                 contributions_adapter.notifyDataSetChanged();
@@ -326,74 +386,5 @@ public class contributions_home extends AppCompatActivity {
         }
     }
 
-    public  void getContributionTypes(){
 
-        progressbar.setVisibility(View.VISIBLE);
-
-        if (!NetworkUtility.isNetworkConnected(contributions_home.this)) {
-            progressbar.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG).show();
-
-
-        } else {
-            progressbar.setVisibility(View.GONE);
-            //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
-            ServiceWrapper service = new ServiceWrapper(null);
-            Call<ContributionTypeRes> call = service.ContributionTypeCall("1234");
-
-            call.enqueue(new Callback<ContributionTypeRes>() {
-                @Override
-                public void onResponse(Call<ContributionTypeRes> call, Response<ContributionTypeRes> response) {
-                    Log.e(TAG, "responsez is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
-                    Log.e(TAG, "  ss sixe 1 ");
-                    if (response.body() != null && response.isSuccessful()) {
-
-                        Log.e(TAG, "  ss sixe 2 ");
-                        if (response.body().getStatus() == 1) {
-                            Log.e(TAG, "  ss sixe 3 ");
-
-
-                            if (response.body().getInformation().size()>0){
-
-                                progressbar.setVisibility(View.GONE);
-
-                             contributionsTypeModels.clear();
-                                for (int i =0; i<response.body().getInformation().size(); i++){
-
-
-                                    contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
-
-
-                                }
-                                contributions_type_adapter.notifyDataSetChanged();
-
-
-
-                            }
-
-                        } else {
-                            progressbar.setVisibility(View.GONE);
-                            AppUtilits.displayMessage(contributions_home.this, response.body().getMsg());
-                        }
-                    } else {
-                        progressbar.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<ContributionTypeRes> call, Throwable t) {
-                    progressbar.setVisibility(View.GONE);
-
-                    Toast.makeText(getApplicationContext(), "please try again. Failed to get user contributions ", Toast.LENGTH_LONG).show();
-
-                }
-            });
-
-
-        }
-
-
-    }
 }

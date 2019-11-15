@@ -61,6 +61,8 @@ public class contributions_type_adapter extends RecyclerView.Adapter<RecyclerVie
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return 0;
