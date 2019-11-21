@@ -104,9 +104,7 @@ public class SignUp extends AppCompatActivity {
             AppUtilits.destroyDialog(progressbar);
 
 
-        } else {
-
-            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+        } else {            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             Call<NewUserRegistration> callNewREgistration = serviceWrapper.newUserRegistrationCall(id_number.getText().toString(), fname.getText().toString(), lname.getText().toString(),
                     email.getText().toString(), phone_no.getText().toString(),
                     "username", password.getText().toString());
@@ -117,6 +115,7 @@ public class SignUp extends AppCompatActivity {
                     if (response.body() != null && response.isSuccessful()) {
                         if (response.body().getStatus() == 1) {
                             AppUtilits.destroyDialog(progressbar);
+
                             // store userdata to share prerference
                             sharedPreferenceActivity.putItem(Constant.USER_DATA, response.body().getInformation().getUserId());
                             sharedPreferenceActivity.putItem(Constant.ID_NUMBER, response.body().getInformation().getIdNumber());
