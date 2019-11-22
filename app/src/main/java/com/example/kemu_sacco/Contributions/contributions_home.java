@@ -133,13 +133,10 @@ public class contributions_home extends AppCompatActivity {
                 final EditText code = view.findViewById(R.id.code);
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
-                final Spinner spinner  = view.findViewById(R.id.contributiontypespinner);
+                final Spinner contributionspinner  = view.findViewById(R.id.contributiontypespinner);
 
              //   getContributionTypes();
 
-
-
-                    progressbar.setVisibility(View.VISIBLE);
 
                     if (!NetworkUtility.isNetworkConnected(contributions_home.this)) {
                         progressbar.setVisibility(View.GONE);
@@ -159,49 +156,29 @@ public class contributions_home extends AppCompatActivity {
                                 Log.e(TAG, "responsez is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
                                 Log.e(TAG, "  ss sixe 1 ");
                                 if (response.body() != null && response.isSuccessful()) {
-
                                     Log.e(TAG, "  ss sixe 2 ");
                                     if (response.body().getStatus() == 1) {
                                         Log.e(TAG, "  ss sixe 3 ");
 
-
                                         if (response.body().getInformation().size()>0){
 
-                                            progressbar.setVisibility(View.GONE);
-
-                                            contributionsTypeModels.clear();
-                                            String[] code = new String[response.body().getInformation().size()];
+                                             String[] code = new String[response.body().getInformation().size()];
                                             String[] name = new String[response.body().getInformation().size()];
 
+                                            Log.d("codey", String.valueOf(response.body().getInformation().size()));
                                             for (int i =0; i<response.body().getInformation().size(); i++){
-
-
-                                               contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
 
                                                 code[i] = response.body().getInformation().get(i).getContributionTypeId();
                                                 name[i] = response.body().getInformation().get(i).getContributionType();
-
-
-                                                Spinner_Adapter spinnerAdapter = new Spinner_Adapter(context , code, name);
-                                                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                                spinner.setAdapter(spinnerAdapter);
-                                                spinnerAdapter.notifyDataSetChanged();
-
-
-
+                                                Log.d("codee", code[i]);
+                                                Log.d("codee", name[i]);
                                             }
 
-                                         contributions_type_adapter.notifyDataSetChanged();
-
-
-
-
-
-
+                                            Spinner_Adapter spinner_adapter= new Spinner_Adapter(context, code, name);
+                                            spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                            contributionspinner.setAdapter(spinner_adapter);
 
                                         }
-
-
 
                                     } else {
                                         progressbar.setVisibility(View.GONE);
@@ -225,6 +202,20 @@ public class contributions_home extends AppCompatActivity {
 
 
                     }
+                    contributionspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            pin = parent.getItemAtPosition(position).toString();
+
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
 
 
 

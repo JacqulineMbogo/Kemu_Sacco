@@ -1,6 +1,7 @@
 package com.example.kemu_sacco;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+
+
 public class Spinner_Adapter extends ArrayAdapter<String>
 {
     Context context;
-    String[] code;
-    String[] name;
+    String[] codes;
+    String[] description;
 
-    public Spinner_Adapter(Context context, String[] code, String[] name)
+    public Spinner_Adapter(Context context, String[] codes, String[] description)
     {
-        super(context, R.layout.activity_contributions_type_adapter);
+        super(context, R.layout.spinner_two_column, description);
 
         this.context        =   context;
-        this.code         =   code;
-        this.name   =   name;
+        this.codes          =   codes;
+        this.description    =   description;
     }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
@@ -32,7 +36,7 @@ public class Spinner_Adapter extends ArrayAdapter<String>
         if(view==null)
         {
             LayoutInflater layoutInflater   =   (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view    =   layoutInflater.inflate(R.layout.activity_contributions_type_adapter, null, false);
+            view    =   layoutInflater.inflate(R.layout.spinner_two_column, null, false);
             viewHolder  =   new ViewHolder(view);
             view.setTag(viewHolder);
         }
@@ -41,15 +45,17 @@ public class Spinner_Adapter extends ArrayAdapter<String>
             viewHolder  =   (ViewHolder) view.getTag();
         }
 
-        viewHolder.code.setText(code[position]);
-        viewHolder.description.setText(name[position]);
+        viewHolder.code.setText(codes[position]);
+        viewHolder.description.setText(description[position]);
 
+        Log.d("views created", "views created");
         return view;
     }
 
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent)
     {
+        Log.d("view created", "view created");
         return getView(position, convertView, parent);
     }
 
@@ -60,8 +66,8 @@ public class Spinner_Adapter extends ArrayAdapter<String>
 
         public ViewHolder(View view)
         {
-            code    =   view.findViewById(R.id.contribution_type_id);
-            description =   view.findViewById(R.id.text);
+            code    =   view.findViewById(R.id.spinner_two_column_code);
+            description =   view.findViewById(R.id.spinner_two_column_description);
         }
     }
 }

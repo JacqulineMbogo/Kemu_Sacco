@@ -4,6 +4,7 @@ package com.example.kemu_sacco.WebServices;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
+import com.example.kemu_sacco.beanResponse.LoanTypeRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
 import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
@@ -62,6 +63,14 @@ public interface ServiceInterface {
     @Multipart
     @POST("kemu_sacco/get_contribution_types.php")
     Call<ContributionTypeRes> ContributionTypeCall(
+            @Part("securecode") RequestBody securecode
+
+    );
+
+    ///  get loan types
+    @Multipart
+    @POST("kemu_sacco/get_loan_types.php")
+    Call<LoanTypeRes> LoanTypeCall(
             @Part("securecode") RequestBody securecode
 
     );

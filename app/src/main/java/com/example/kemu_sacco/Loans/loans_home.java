@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -27,11 +28,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kemu_sacco.Contributions.contributions_adapter;
 import com.example.kemu_sacco.R;
+import com.example.kemu_sacco.Spinner_Adapter;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
+import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.LoanTypeRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,6 +55,7 @@ public class loans_home extends AppCompatActivity {
     FloatingActionButton new_loan;
     ProgressBar progressbar;
     String TAG = "loans";
+    String pin;
     SharedPreferenceActivity sharedPreferenceActivity;
     private  loans_adapter loans_adapter;
     private ArrayList<loans_model> loansModels = new ArrayList<>();
@@ -112,8 +117,86 @@ public class loans_home extends AppCompatActivity {
                 final EditText amount = view.findViewById(R.id.contributionamount);
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
-                final Spinner spinner  = view.findViewById(R.id.loantypespinner);
+                final Spinner loanspinner  = view.findViewById(R.id.loantypespinner);
 
+
+                if (!NetworkUtility.isNetworkConnected(loans_home.this)) {
+                    progressbar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG).show();
+
+
+                } else {
+                    progressbar.setVisibility(View.GONE);
+                    //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
+                    ServiceWrapper service = new ServiceWrapper(null);
+                    Call<LoanTypeRes> call = service.LoanTypeCall("1234");
+
+
+                    call.enqueue(new Callback<LoanTypeRes>() {
+                        @Override
+                        public void onResponse(Call<LoanTypeRes> call, Response<LoanTypeRes> response) {
+                            Log.e(TAG, "responsez is " + response.body() + "  ---- " + new Gson().toJson(response.body()));
+                            Log.e(TAG, "  ss sixe 1 ");
+                            if (response.body() != null && response.isSuccessful()) {
+                                Log.e(TAG, "  ss sixe 2 ");
+                                if (response.body().getStatus() == 1) {
+                                    Log.e(TAG, "  ss sixe 3 ");
+
+                                    if (response.body().getInformation().size()>0){
+
+                                        String[] code = new String[response.body().getInformation().size()];
+                                        String[] name = new String[response.body().getInformation().size()];
+
+                                        Log.d("codey", String.valueOf(response.body().getInformation().size()));
+                                        for (int i =0; i<response.body().getInformation().size(); i++){
+
+                                            code[i] = response.body().getInformation().get(i).getLoanTypeId();
+                                            name[i] = response.body().getInformation().get(i).getLoanType();
+
+                                        }
+
+                                        Spinner_Adapter spinner_adapter= new Spinner_Adapter(context, code, name);
+                                        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                        loanspinner.setAdapter(spinner_adapter);
+
+                                    }
+
+                                } else {
+                                    progressbar.setVisibility(View.GONE);
+                                    AppUtilits.displayMessage(loans_home.this, response.body().getMsg());
+                                }
+                            } else {
+                                progressbar.setVisibility(View.GONE);
+                                Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoanTypeRes> call, Throwable t) {
+                            progressbar.setVisibility(View.GONE);
+
+                            Toast.makeText(getApplicationContext(), "please try again. Failed to get user contributions ", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+
+
+                }
+                loanspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        pin = parent.getItemAtPosition(position).toString();
+
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
 
 
 
@@ -139,7 +222,7 @@ public class loans_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveLoanApplication("Loan Type", amount.getText().toString());
+                        saveLoanApplication(pin, amount.getText().toString());
                         dialog.cancel();
                     }
                 });

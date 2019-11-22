@@ -6,6 +6,7 @@ import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
+import com.example.kemu_sacco.beanResponse.LoanTypeRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
 import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
@@ -89,6 +90,12 @@ public class ServiceWrapper  {
     public Call<ContributionTypeRes> ContributionTypeCall(String securecode){
         return mServiceInterface.ContributionTypeCall(convertPlainString(securecode));
     }
+
+    ///  get all loan types
+    public Call<LoanTypeRes> LoanTypeCall(String securecode){
+        return mServiceInterface.LoanTypeCall(convertPlainString(securecode));
+    }
+
 
     ///  get all loans
     public Call<LoansApplicationRes> LoansCall(String securecode, String user_id){
