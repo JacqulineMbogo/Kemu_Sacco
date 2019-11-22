@@ -42,13 +42,18 @@ public class LoanTypeRes {
     }
 
     public class Information {
-
         @SerializedName("loan_type_id")
         @Expose
         private String loanTypeId;
         @SerializedName("loan_type")
         @Expose
         private String loanType;
+        @SerializedName("max")
+        @Expose
+        private String max;
+        @SerializedName("rate")
+        @Expose
+        private String rate;
 
         public String getLoanTypeId() {
             return loanTypeId;
@@ -66,6 +71,21 @@ public class LoanTypeRes {
             this.loanType = loanType;
         }
 
-    }
+        public String getMax() {
+            return max;
+        }
 
+        public void setMax(String max) {
+            this.max = max;
+        }
+
+        public String getRate() {
+            return rate;
+        }
+
+        public void setRate(String rate) {
+            this.rate = rate;
+        }
+
+}
 }

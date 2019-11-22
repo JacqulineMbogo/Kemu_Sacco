@@ -72,6 +72,7 @@ public class contributions_home extends AppCompatActivity {
 
     private ArrayList<contribution_type_model> goodModelArrayList;
     private ArrayList<String> contribution_type = new ArrayList<String>();
+   String counts;
 
 
     @Override
@@ -160,6 +161,7 @@ public class contributions_home extends AppCompatActivity {
                                     if (response.body().getStatus() == 1) {
                                         Log.e(TAG, "  ss sixe 3 ");
 
+                                        contributionsTypeModels.clear();
                                         if (response.body().getInformation().size()>0){
 
                                              String[] code = new String[response.body().getInformation().size()];
@@ -168,6 +170,7 @@ public class contributions_home extends AppCompatActivity {
                                             Log.d("codey", String.valueOf(response.body().getInformation().size()));
                                             for (int i =0; i<response.body().getInformation().size(); i++){
 
+                                                contributionsTypeModels.add(  new contributions_type_model(response.body().getInformation().get(i).getContributionTypeId(),response.body().getInformation().get(i).getContributionType()));
                                                 code[i] = response.body().getInformation().get(i).getContributionTypeId();
                                                 name[i] = response.body().getInformation().get(i).getContributionType();
                                                 Log.d("codee", code[i]);
@@ -202,12 +205,17 @@ public class contributions_home extends AppCompatActivity {
 
 
                     }
+
+
                     contributionspinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                             pin = parent.getItemAtPosition(position).toString();
 
+                            counts= contributionsTypeModels.get(position).getContribution_type_id();
+
+                            Log.d("counts", counts);
 
                         }
 
@@ -242,7 +250,7 @@ public class contributions_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveNewContribution(pin, amount.getText().toString(), code.getText().toString());
+                        saveNewContribution(counts, amount.getText().toString(), code.getText().toString());
                         dialog.cancel();
                     }
                 });

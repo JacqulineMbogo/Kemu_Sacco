@@ -55,10 +55,12 @@ public class loans_home extends AppCompatActivity {
     FloatingActionButton new_loan;
     ProgressBar progressbar;
     String TAG = "loans";
-    String pin;
+    String pin, counts;
     SharedPreferenceActivity sharedPreferenceActivity;
     private  loans_adapter loans_adapter;
     private ArrayList<loans_model> loansModels = new ArrayList<>();
+
+    private ArrayList<loan_type_model> loanTypeModels = new ArrayList<>();
 
 
     @Override
@@ -114,6 +116,7 @@ public class loans_home extends AppCompatActivity {
 
 
 
+
                 final EditText amount = view.findViewById(R.id.contributionamount);
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
@@ -142,6 +145,7 @@ public class loans_home extends AppCompatActivity {
                                 if (response.body().getStatus() == 1) {
                                     Log.e(TAG, "  ss sixe 3 ");
 
+                                    loanTypeModels.clear();
                                     if (response.body().getInformation().size()>0){
 
                                         String[] code = new String[response.body().getInformation().size()];
@@ -150,6 +154,7 @@ public class loans_home extends AppCompatActivity {
                                         Log.d("codey", String.valueOf(response.body().getInformation().size()));
                                         for (int i =0; i<response.body().getInformation().size(); i++){
 
+                                            loanTypeModels.add(  new loan_type_model(response.body().getInformation().get(i).getLoanTypeId(),response.body().getInformation().get(i).getLoanType(),response.body().getInformation().get(i).getMax(),response.body().getInformation().get(i).getRate()));
                                             code[i] = response.body().getInformation().get(i).getLoanTypeId();
                                             name[i] = response.body().getInformation().get(i).getLoanType();
 
@@ -188,6 +193,7 @@ public class loans_home extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                         pin = parent.getItemAtPosition(position).toString();
+                        counts= loanTypeModels.get(position).getLoan_type_id();
 
 
                     }
@@ -214,6 +220,13 @@ public class loans_home extends AppCompatActivity {
                     @Override
                     public void afterTextChanged(Editable s) {
 
+                        if(Integer.valueOf(s.toString()) > Integer.valueOf(sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS))){
+
+
+                            AppUtilits.displayMessage(loans_home.this, "Maximum amount you can borrow is Ksh" + " " +  sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS));
+                            amount.setText("0");
+                        }
+
 
 
                     }
@@ -222,7 +235,7 @@ public class loans_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveLoanApplication(pin, amount.getText().toString());
+                        saveLoanApplication(counts, amount.getText().toString());
                         dialog.cancel();
                     }
                 });
@@ -318,7 +331,7 @@ public class loans_home extends AppCompatActivity {
 
                                 total_loans.setText("Total loan amount is Ksh " + response.body().getMsg() );
 
-                                sharedPreferenceActivity.putItem(Constant.TOTAL_CONTRIBUTIONS, String.valueOf(response.body().getMsg()));
+                                sharedPreferenceActivity.putItem(Constant.TOTAL_LOANS, String.valueOf(response.body().getMsg()));
                                 loansModels.clear();
                                 for (int i =0; i<response.body().getInformation().size(); i++){
 
