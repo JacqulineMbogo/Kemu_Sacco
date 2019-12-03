@@ -9,6 +9,7 @@ import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
 import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
+import com.example.kemu_sacco.beanResponse.NextofKinRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 
@@ -29,6 +30,7 @@ public interface ServiceInterface {
             @Part("email") RequestBody email,
             @Part("phone_number") RequestBody phone_number,
             @Part("username") RequestBody username,
+            @Part("amount") RequestBody amount,
             @Part("password") RequestBody password
     );
 
@@ -110,7 +112,23 @@ public interface ServiceInterface {
             @Part("securecode") RequestBody securecode,
             @Part("application_id") RequestBody application_id,
             @Part("amount") RequestBody amount,
+            @Part("user_id") RequestBody user_id,
+            @Part("code") RequestBody code
+
+    );
+
+    /// loan payment
+    @Multipart
+    @POST("kemu_sacco/add_next_of_kin.php")
+    Call<NextofKinRes> NextofKinResCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("name") RequestBody name,
+            @Part("id") RequestBody id,
+            @Part("relation") RequestBody relation,
+            @Part("phone") RequestBody phone,
+            @Part("amount") RequestBody amount,
             @Part("user_id") RequestBody user_id
+
 
     );
 

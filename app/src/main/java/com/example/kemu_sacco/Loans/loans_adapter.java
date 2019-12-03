@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kemu_sacco.Contributions.contributions_model;
 import com.example.kemu_sacco.R;
+import com.example.kemu_sacco.Utility.AppUtilits;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private class loansView extends RecyclerView.ViewHolder {
 
-        TextView application_id,loan_type, amount,application_date;
+        TextView application_id,loan_type, amount,application_date,status;
         CardView loancard;
 
 
@@ -44,6 +45,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
             loan_type=  itemView.findViewById(R.id.loan_type);
             application_date =  itemView.findViewById(R.id.loandate);
             loancard = itemView.findViewById(R.id.loancard);
+            status = itemView.findViewById(R.id.status);
 
         }
     }
@@ -64,16 +66,28 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((loansView) holder).amount.setText(" Amount: " + " " +model.getAmount());
         ((loansView) holder).loan_type.setText(" Loan Type: " + " " +model.getLoan_id());
         ((loansView) holder).application_date.setText(" Date Applied: " + " " +model.getDate());
+        ((loansView) holder).status.setText(" Status: " + " " +model.getStatus());
 
         ((loansView) holder).loancard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                Intent intent = new Intent(mContext,loan_payments_home.class);
-                intent.putExtra("application_id", model.getApplication_id());
-                intent.putExtra("loan_amount", model.getAmount());
-                mContext.startActivity(intent);
+                if(model.getStatus().equals("Pending")) {
+
+                    AppUtilits.displayMessage(mContext, "Please wait for Admin Approval");
+
+                }else if(model.getStatus().equals("Approved")){
+
+                    Intent intent = new Intent(mContext, loan_payments_home.class);
+                    intent.putExtra("application_id", model.getApplication_id());
+                    intent.putExtra("loan_amount", model.getAmount());
+                    mContext.startActivity(intent);
+                }else{
+
+                    AppUtilits.displayMessage(mContext, "This loan has been rejected. Please contact the admin for more information");
+
+                }
             }
         });
 

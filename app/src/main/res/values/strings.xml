@@ -12,17 +12,17 @@
 
     <string name="id_number">ID Number</string>
     <string name="password">Password</string>
-    <string name="newuser">New User?</string>
+    <string name="newuser">New User? Register</string>
 
     <string name="email">Email</string>
     <string name="phone_no">Phone Number (07...)</string>
     <string name="retype_password">Confirm password</string>
     <string name="existing">Existing User?</string>
 
-    <string name="contribution">Savings</string>
+    <string name="contribution">Savings $ Contributions</string>
     <string name="loans">Loans</string>
-    <string name="add_contribution">Add Savings</string>
-    <string name="new_contribution">Add Savings</string>
+    <string name="add_contribution">Add Contribution</string>
+    <string name="new_contribution">Add Contribution</string>
     <string name="contribution_type">Contribution Type</string>
     <string name="amount">Amount</string>
     <string name="date">Date Created</string>
@@ -36,6 +36,12 @@
     <string name="new_payment">New Payment</string>
     <string name="loan_type">Loan Type</string>
     <string name="loanpayment">Loan Payment</string>
+    <string name="application">New User Application Form</string>
+    <string name="kin">Nominated Next Of Kin</string>
+    <string name="nextname">Full Name</string>
+    <string name="relation">Relationship</string>
+    <string name="dob">Date Of Birth</string>
+    <string name="amounttext">Amount To Be Deducted Monthly</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>

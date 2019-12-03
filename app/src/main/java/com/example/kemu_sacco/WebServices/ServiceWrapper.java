@@ -11,6 +11,7 @@ import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
 import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
+import com.example.kemu_sacco.beanResponse.NextofKinRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 import com.google.gson.Gson;
@@ -66,9 +67,8 @@ public class ServiceWrapper  {
         return retrofit;
     }
 
-    public Call<NewUserRegistration> newUserRegistrationCall(String id_number,String first_name, String last_name,  String email, String phone_number, String username, String password){
-        return mServiceInterface.NewUserRegistrationCall( convertPlainString(id_number),convertPlainString(first_name),convertPlainString(last_name),convertPlainString(email), convertPlainString(phone_number), convertPlainString( username),
-                convertPlainString(password));
+    public Call<NewUserRegistration> newUserRegistrationCall(String id_number,String first_name, String last_name,  String email, String phone_number, String username, String amount, String password){
+        return mServiceInterface.NewUserRegistrationCall( convertPlainString(id_number),convertPlainString(first_name),convertPlainString(last_name),convertPlainString(email), convertPlainString(phone_number), convertPlainString(username),convertPlainString(amount), convertPlainString(password));
     }
     ///  user signin
     public Call<UserSignInRes> UserSigninCall(String id_number, String password){
@@ -113,8 +113,13 @@ public class ServiceWrapper  {
     }
 
     ///  make loan payment
-    public Call<MakeLoanPaymentRes> MakeLoanPaymentCall(String securecode, String application_id, String amount, String user_id){
-        return mServiceInterface.MakeLoanPaymentCall(convertPlainString(securecode),convertPlainString(application_id),convertPlainString(amount), convertPlainString(user_id));
+    public Call<MakeLoanPaymentRes> MakeLoanPaymentCall(String securecode, String application_id, String amount, String user_id,String code){
+        return mServiceInterface.MakeLoanPaymentCall(convertPlainString(securecode),convertPlainString(application_id),convertPlainString(amount), convertPlainString(user_id),convertPlainString(code));
+    }
+
+    /// next of kin
+    public Call<NextofKinRes>NextofKinResCall(String securecode, String name,String id, String relation, String phone, String amount ,String user_id){
+        return mServiceInterface.NextofKinResCall(convertPlainString(securecode),convertPlainString(name),convertPlainString(id) ,convertPlainString(relation),convertPlainString(phone), convertPlainString(amount), convertPlainString(user_id));
     }
 
     // convert aa param into plain text

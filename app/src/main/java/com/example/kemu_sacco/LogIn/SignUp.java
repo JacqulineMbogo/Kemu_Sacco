@@ -21,6 +21,7 @@ import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
+import com.example.kemu_sacco.beanResponse.NextofKinRes;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +32,7 @@ public class SignUp extends AppCompatActivity {
     Context context;
     SharedPreferenceActivity sharedPreferenceActivity;
 
-    EditText id_number, phone_no, email, password, retype_password, fname, lname;
+    EditText id_number, phone_no, email, password, retype_password, fname, lname, nextname, nextid,nextnumber, nextrelation , nextname2, nextid2,nextnumber2, nextrelation2, amount;
     TextView create_acc, signin;
 
 
@@ -55,6 +56,11 @@ public class SignUp extends AppCompatActivity {
         retype_password =  findViewById(R.id.retype_password);
         signin =  findViewById(R.id.sign_in);
         create_acc = findViewById(R.id.create_account);
+        nextname = findViewById(R.id.nextname);
+        nextid= findViewById(R.id.nextid);
+        nextrelation = findViewById(R.id.nextrelation);
+        amount= findViewById(R.id.amount);
+
 
 
         create_acc.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +113,7 @@ public class SignUp extends AppCompatActivity {
         } else {            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             Call<NewUserRegistration> callNewREgistration = serviceWrapper.newUserRegistrationCall(id_number.getText().toString(), fname.getText().toString(), lname.getText().toString(),
                     email.getText().toString(), phone_no.getText().toString(),
-                    "username", password.getText().toString());
+                    "username" , amount.getText().toString().trim(), password.getText().toString());
             callNewREgistration.enqueue(new Callback<NewUserRegistration>() {
                 @Override
                 public void onResponse(Call<NewUserRegistration> call, Response<NewUserRegistration> response) {
@@ -125,7 +131,59 @@ public class SignUp extends AppCompatActivity {
                             sharedPreferenceActivity.putItem(Constant.USER_email, response.body().getInformation().getEmail());
                             sharedPreferenceActivity.putItem(Constant.USER_phone, response.body().getInformation().getPhoneNumber());
 
-                            // start home activity
+
+                            sendNextofKin();
+                       /*     // start home activity
+
+                            AppUtilits.createToaster(SignUp.this, "Welcome, " + sharedPreferenceActivity.getItem(Constant.FIRST_NAME) +  " " + sharedPreferenceActivity.getItem(Constant.LAST_NAME) + "\n Please continue to sign in upon admin approval", Toast.LENGTH_LONG);
+                            Intent intent = new Intent(SignUp.this, LogIn.class);
+
+                            startActivity(intent);
+                            finish();*/
+
+                        } else {
+                            AppUtilits.destroyDialog(progressbar);
+                            AppUtilits.displayMessage(SignUp.this, response.body().getMsg());
+                        }
+                    } else {
+                        AppUtilits.destroyDialog(progressbar);
+                        Toast.makeText(getApplicationContext(), "Request failed", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<NewUserRegistration> call, Throwable t) {
+                    AppUtilits.destroyDialog(progressbar);
+                    Log.e(TAG, " failure " + t.toString());
+                    Toast.makeText(getApplicationContext(), "Request failed", Toast.LENGTH_LONG).show();
+
+
+                }
+            });
+        }
+    }
+
+
+    public void sendNextofKin(){
+
+        final AlertDialog progressbar = AppUtilits.createProgressBar(this);
+
+        if (!NetworkUtility.isNetworkConnected(SignUp.this)) {
+            Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_LONG).show();
+            AppUtilits.destroyDialog(progressbar);
+
+
+        } else {ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+            Call<NextofKinRes> callNextofKinRes = serviceWrapper.NextofKinResCall("1234",nextname.getText().toString(),nextid.getText().toString(),nextrelation.getText().toString(),nextnumber.getText().toString(),amount.getText().toString(),sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            callNextofKinRes.enqueue(new Callback<NextofKinRes>() {
+                @Override
+                public void onResponse(Call<NextofKinRes> call, Response<NextofKinRes> response) {
+                    Log.d(TAG, "reponse : " + response.toString());
+                    if (response.body() != null && response.isSuccessful()) {
+                        if (response.body().getStatus() == 1) {
+                            AppUtilits.destroyDialog(progressbar);
+
 
                             AppUtilits.createToaster(SignUp.this, "Welcome, " + sharedPreferenceActivity.getItem(Constant.FIRST_NAME) +  " " + sharedPreferenceActivity.getItem(Constant.LAST_NAME) + "\n Please continue to sign in upon admin approval", Toast.LENGTH_LONG);
                             Intent intent = new Intent(SignUp.this, LogIn.class);
@@ -145,7 +203,7 @@ public class SignUp extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<NewUserRegistration> call, Throwable t) {
+                public void onFailure(Call<NextofKinRes> call, Throwable t) {
                     AppUtilits.destroyDialog(progressbar);
                     Log.e(TAG, " failure " + t.toString());
                     Toast.makeText(getApplicationContext(), "Request failed", Toast.LENGTH_LONG).show();

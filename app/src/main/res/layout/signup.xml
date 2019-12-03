@@ -5,10 +5,14 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
+
+
 
         <ImageView
             android:layout_width="250dp"
@@ -18,22 +22,54 @@
             android:src="@drawable/kemu_logo"
             android:layout_marginTop="@dimen/padding_too_large"/>
 
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/application"
+            android:layout_below="@+id/logo_image"
+            android:layout_margin="@dimen/padding_large"
+            android:padding="@dimen/padding_small"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/id_number"
             android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:paddingTop="@dimen/padding_small"
-            android:layout_below="@+id/logo_image"
+            android:layout_below="@+id/text"
             android:inputType="number"
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
             android:layout_marginTop="@dimen/padding_extralarge"
             android:hint="@string/id_number"/>
+
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dob"
+            android:visibility="gone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/text"
+            android:layout_toEndOf="@+id/id_number"
+           android:editable="false"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="@string/dob"
+            android:layout_toRightOf="@+id/id_number" />
+        <EditText
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/f_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:paddingLeft="@dimen/padding_small"
             android:paddingTop="@dimen/padding_small"
             android:layout_below="@+id/id_number"
@@ -42,26 +78,31 @@
             android:layout_marginTop="@dimen/padding_too_large"
             android:hint="First Name"/>
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/l_name"
             android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:paddingTop="@dimen/padding_small"
-            android:layout_below="@+id/f_name"
+            android:layout_below="@+id/id_number"
+            android:layout_toEndOf="@+id/f_name"
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
             android:layout_marginTop="@dimen/padding_too_large"
-            android:hint="Last Name"/>
+            android:hint="Last Name"
+            android:layout_toRightOf="@+id/f_name" />
 
 
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/email"
             android:paddingLeft="@dimen/padding_small"
             android:paddingTop="@dimen/padding_small"
-            android:layout_below="@+id/l_name"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_below="@+id/f_name"
             android:inputType="textEmailAddress"
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
@@ -70,20 +111,23 @@
 
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/phone_number"
             android:inputType="phone"
             android:paddingLeft="@dimen/padding_small"
             android:paddingTop="@dimen/padding_small"
-            android:layout_below="@+id/email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_below="@+id/f_name"
+            android:layout_toEndOf="@+id/email"
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
             android:layout_marginTop="@dimen/padding_extralarge"
-            android:hint="@string/phone_no"/>
+            android:hint="@string/phone_no"
+            android:layout_toRightOf="@+id/email" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/password"
             android:paddingLeft="@dimen/padding_small"
@@ -93,28 +137,200 @@
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
 
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:layout_marginTop="@dimen/padding_extralarge"
             android:hint="@string/password"/>
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/retype_password"
             android:paddingLeft="@dimen/padding_small"
             android:inputType="textPassword"
             android:paddingTop="@dimen/padding_small"
-            android:layout_below="@+id/password"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_below="@+id/phone_number"
+            android:layout_toEndOf="@+id/password"
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
             android:layout_marginTop="@dimen/padding_extralarge"
-            android:hint="@string/retype_password"/>
+            android:hint="@string/retype_password"
+            android:layout_toRightOf="@+id/password" />
 
+
+        <TextView
+            android:id="@+id/kin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kin"
+            android:layout_below="@+id/password"
+            android:layout_margin="@dimen/padding_large"
+            android:padding="@dimen/padding_small"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextname"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/kin"
+            android:inputType="text"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="@string/nextname"/>
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextrelation"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/kin"
+            android:inputType="text"
+            android:layout_toEndOf="@+id/nextname"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="@string/relation"
+            android:layout_toRightOf="@+id/nextname" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextnumber"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/nextname"
+            android:inputType="number"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="@string/phone_no"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextid"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/nextname"
+            android:layout_toEndOf="@+id/nextnumber"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="ID No"
+            android:inputType="number"
+            android:layout_toRightOf="@+id/f_name" />
+
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextname2"
+            android:visibility="gone"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/nextnumber"
+            android:inputType="text"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_too_large"
+            android:hint="@string/nextname"/>
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextrelation2"
+            android:paddingLeft="@dimen/padding_small"
+            android:visibility="gone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/nextid"
+            android:inputType="text"
+            android:layout_toEndOf="@+id/nextname2"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_too_large"
+            android:hint="@string/relation"
+            android:layout_toRightOf="@+id/nextname" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextnumber2"
+            android:visibility="gone"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/nextname2"
+            android:inputType="number"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="@string/phone_no"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nextid2"
+            android:visibility="gone"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/nextname2"
+            android:layout_toEndOf="@+id/nextnumber2"
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="ID No"
+            android:inputType="number"
+            android:layout_toRightOf="@+id/f_name" />
+
+
+
+        <TextView
+            android:id="@+id/amounttext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/amounttext"
+            android:layout_below="@+id/nextnumber"
+            android:layout_margin="@dimen/padding_large"
+            android:padding="@dimen/padding_small"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/amount"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_small"
+            android:layout_below="@+id/amounttext"
+
+            android:layout_marginLeft="@dimen/padding_too_large"
+            android:layout_marginRight="@dimen/padding_too_large"
+            android:layout_marginTop="@dimen/padding_extralarge"
+            android:hint="Amount"
+            android:inputType="number"
+             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signup"
             android:clickable="true"
-            android:layout_below="@id/retype_password"
+            android:layout_below="@id/amount"
             android:id="@+id/create_account"
             android:gravity="center_horizontal"
             android:background="@drawable/rounded_blue"
@@ -125,8 +341,6 @@
 
 
         <TextView
-
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
@@ -134,6 +348,7 @@
             android:id="@+id/already"
             android:text="@string/existing"
             android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_medium"
             android:layout_below="@id/create_account"
             android:layout_marginLeft="@dimen/padding_too_large"/>
 
@@ -145,6 +360,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="@string/signin"
+            android:layout_marginBottom="@dimen/padding_medium"
             android:clickable="true"
             android:id="@+id/sign_in"
             android:layout_toRightOf="@id/already"

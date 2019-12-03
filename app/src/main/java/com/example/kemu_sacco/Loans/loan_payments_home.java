@@ -30,6 +30,7 @@ import com.example.kemu_sacco.Contributions.contributions_home;
 import com.example.kemu_sacco.R;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
+import com.example.kemu_sacco.Utility.DataValidation;
 import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
@@ -139,11 +140,37 @@ public class loan_payments_home extends AppCompatActivity {
                     }
                 });
 
+
+
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveNewLoanPayment(amount.getText().toString(), code.getText().toString());
-                        dialog.cancel();
+
+                        if(!amount.getText().toString().isEmpty()){
+                            if (!code.getText().toString().isEmpty()) {
+
+                                if (!DataValidation.isNotValidcode(code.getText().toString())) {
+                                    saveNewLoanPayment(amount.getText().toString(), code.getText().toString());
+                                    dialog.cancel();
+
+                                }else{
+
+                                    code.setError("Invalid code length. Should be 10 characters.");
+                                    code.requestFocus();
+
+                                }
+                            }else{
+                                code.setError("please input transaction code ");
+                                code.requestFocus();
+
+                            }
+                        }else{
+
+                            amount.setError("please input amount");
+                            amount.requestFocus();
+
+                        }
+
                     }
                 });
                 cancel.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +205,7 @@ public class loan_payments_home extends AppCompatActivity {
 
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<MakeLoanPaymentRes> call = service.MakeLoanPaymentCall("12345", application_id,amount,sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            Call<MakeLoanPaymentRes> call = service.MakeLoanPaymentCall("12345", application_id,amount,sharedPreferenceActivity.getItem(Constant.USER_DATA),code);
             call.enqueue(new Callback<MakeLoanPaymentRes>() {
                 @Override
                 public void onResponse(Call<MakeLoanPaymentRes> call, Response<MakeLoanPaymentRes> response) {

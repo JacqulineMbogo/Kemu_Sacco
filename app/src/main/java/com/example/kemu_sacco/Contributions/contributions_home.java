@@ -31,6 +31,7 @@ import com.example.kemu_sacco.R;
 import com.example.kemu_sacco.Spinner_Adapter;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
+import com.example.kemu_sacco.Utility.DataValidation;
 import com.example.kemu_sacco.Utility.NetworkUtility;
 import com.example.kemu_sacco.Utility.SharedPreferenceActivity;
 import com.example.kemu_sacco.WebServices.ServiceWrapper;
@@ -250,8 +251,32 @@ public class contributions_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveNewContribution(counts, amount.getText().toString(), code.getText().toString());
-                        dialog.cancel();
+
+                        if(!amount.getText().toString().isEmpty()){
+                            if (!code.getText().toString().isEmpty()) {
+
+                                if (!DataValidation.isNotValidcode(code.getText().toString())) {
+                                    saveNewContribution(counts, amount.getText().toString(), code.getText().toString());
+                                    dialog.cancel();
+
+                                }else{
+
+                                    code.setError("Invalid code length. Should be 10 characters.");
+                                    code.requestFocus();
+
+                                }
+                            }else{
+                                code.setError("please input transaction code ");
+                                code.requestFocus();
+
+                            }
+                                }else{
+
+                                    amount.setError("please input amount");
+                                    amount.requestFocus();
+
+                                }
+
                     }
                 });
                 cancel.setOnClickListener(new View.OnClickListener() {
