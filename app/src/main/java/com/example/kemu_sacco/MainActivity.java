@@ -13,7 +13,7 @@ import com.example.kemu_sacco.Loans.loans_home;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button contributions, loans;
+    Button contributions, loans, account, feedback;
 
 
     @Override
@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         contributions = findViewById(R.id.contributions);
         loans = findViewById(R.id.loans);
+        account = findViewById(R.id.account);
+        feedback = findViewById(R.id.feedback);
 
         contributions.setOnClickListener(new View.OnClickListener() {
             @Override

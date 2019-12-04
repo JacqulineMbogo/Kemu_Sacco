@@ -59,6 +59,7 @@ public class SignUp extends AppCompatActivity {
         nextname = findViewById(R.id.nextname);
         nextid= findViewById(R.id.nextid);
         nextrelation = findViewById(R.id.nextrelation);
+        nextnumber = findViewById(R.id.nextnumber);
         amount= findViewById(R.id.amount);
 
 
@@ -110,10 +111,9 @@ public class SignUp extends AppCompatActivity {
             AppUtilits.destroyDialog(progressbar);
 
 
-        } else {            ServiceWrapper serviceWrapper = new ServiceWrapper(null);
+        } else { ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             Call<NewUserRegistration> callNewREgistration = serviceWrapper.newUserRegistrationCall(id_number.getText().toString(), fname.getText().toString(), lname.getText().toString(),
-                    email.getText().toString(), phone_no.getText().toString(),
-                    "username" , amount.getText().toString().trim(), password.getText().toString());
+                    email.getText().toString(), phone_no.getText().toString(),"username" , amount.getText().toString().trim(), password.getText().toString());
             callNewREgistration.enqueue(new Callback<NewUserRegistration>() {
                 @Override
                 public void onResponse(Call<NewUserRegistration> call, Response<NewUserRegistration> response) {
@@ -175,7 +175,11 @@ public class SignUp extends AppCompatActivity {
 
 
         } else {ServiceWrapper serviceWrapper = new ServiceWrapper(null);
-            Call<NextofKinRes> callNextofKinRes = serviceWrapper.NextofKinResCall("1234",nextname.getText().toString(),nextid.getText().toString(),nextrelation.getText().toString(),nextnumber.getText().toString(),amount.getText().toString(),sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            Call<NextofKinRes> callNextofKinRes = serviceWrapper.NextofKinResCall("1234",
+                    nextname.getText().toString(),nextid.getText().toString(),
+                    nextrelation.getText().toString(),nextnumber.getText().toString(),
+                    amount.getText().toString(),
+                    sharedPreferenceActivity.getItem(Constant.USER_DATA));
             callNextofKinRes.enqueue(new Callback<NextofKinRes>() {
                 @Override
                 public void onResponse(Call<NextofKinRes> call, Response<NextofKinRes> response) {
