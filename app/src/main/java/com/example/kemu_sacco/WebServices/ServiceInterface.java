@@ -12,6 +12,8 @@ import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.NextofKinRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
+import com.example.kemu_sacco.beanResponse.feedbackAPI;
+import com.example.kemu_sacco.beanResponse.feedhistoryAPI;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -132,6 +134,25 @@ public interface ServiceInterface {
 
     );
 
+    // feedbackAPI
+    @Multipart
+    @POST("kemu_sacco/getfeedback.php")
+    Call<feedbackAPI> feedbackcall(
+            @Part("securecode") RequestBody securecode,
+            @Part("feed_title") RequestBody feed_title,
+            @Part("feed_comment") RequestBody feed_comment,
+            @Part("user_id") RequestBody user_id
+
+    );
+
+
+    // get feedback history
+    @Multipart
+    @POST("kemu_sacco/getallfeedback.php")
+    Call<feedhistoryAPI> getfeedhistorycall(
+            @Part("securecode") RequestBody securecode,
+            @Part("user_id") RequestBody user_id
+    );
 
 
 }

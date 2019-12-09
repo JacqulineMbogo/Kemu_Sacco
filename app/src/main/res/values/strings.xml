@@ -42,6 +42,9 @@
     <string name="relation">Relationship</string>
     <string name="dob">Date Of Birth</string>
     <string name="amounttext">Amount To Be Deducted Monthly</string>
+    <string name="feed">Feedback</string>
+    <string name="skip">Skip</string>
+    <string name="network_error">Network error</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>

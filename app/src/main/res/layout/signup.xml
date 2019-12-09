@@ -36,7 +36,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:id="@+id/id_number"
             android:paddingLeft="@dimen/padding_small"
@@ -53,7 +53,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dob"
-            android:visibility="gone"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:paddingLeft="@dimen/padding_small"
             android:paddingTop="@dimen/padding_small"
@@ -63,7 +62,7 @@
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
             android:layout_marginTop="@dimen/padding_extralarge"
-            android:hint="@string/dob"
+            android:hint="Username"
             android:layout_toRightOf="@+id/id_number" />
         <EditText
             android:layout_width="150dp"
@@ -360,11 +359,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="@string/signin"
-            android:layout_marginBottom="@dimen/padding_medium"
-            android:clickable="true"
+            android:textStyle="bold"
+             android:clickable="true"
             android:id="@+id/sign_in"
             android:layout_toRightOf="@id/already"
             android:layout_marginLeft="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_large"
+            android:layout_marginBottom="@dimen/padding_medium"
             android:textColor="@color/text_color" />
 
 

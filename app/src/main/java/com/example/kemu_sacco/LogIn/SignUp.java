@@ -32,7 +32,7 @@ public class SignUp extends AppCompatActivity {
     Context context;
     SharedPreferenceActivity sharedPreferenceActivity;
 
-    EditText id_number, phone_no, email, password, retype_password, fname, lname, nextname, nextid,nextnumber, nextrelation , nextname2, nextid2,nextnumber2, nextrelation2, amount;
+    EditText id_number, phone_no, email, password, retype_password, fname, lname, nextname, nextid,nextnumber, nextrelation , dob, nextid2,nextnumber2, nextrelation2, amount;
     TextView create_acc, signin;
 
 
@@ -61,8 +61,19 @@ public class SignUp extends AppCompatActivity {
         nextrelation = findViewById(R.id.nextrelation);
         nextnumber = findViewById(R.id.nextnumber);
         amount= findViewById(R.id.amount);
+        dob = findViewById(R.id.dob);
 
 
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(SignUp.this, LogIn.class);
+
+                startActivity(intent);
+                finish();
+            }
+        });
 
         create_acc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +82,12 @@ public class SignUp extends AppCompatActivity {
                 if (DataValidation.isNotValidID(id_number.getText().toString())) {
                     /// show error pupup
                     Toast.makeText(getApplicationContext(), "Invalid id", Toast.LENGTH_LONG).show();
-                } else if (DataValidation.isNotValidLName(fname.getText().toString())) {
+
+                } else if (DataValidation.isNotValidLName(dob.getText().toString())) {
+                    /// show error pupup
+                    Toast.makeText(getApplicationContext(), "Invalid username", Toast.LENGTH_LONG).show();
+
+                }else if (DataValidation.isNotValidLName(fname.getText().toString())) {
                     /// show error pupup
                     Toast.makeText(getApplicationContext(), "Invalid first name", Toast.LENGTH_LONG).show();
                 } else if (DataValidation.isNotValidFullName(lname.getText().toString())) {
@@ -113,7 +129,7 @@ public class SignUp extends AppCompatActivity {
 
         } else { ServiceWrapper serviceWrapper = new ServiceWrapper(null);
             Call<NewUserRegistration> callNewREgistration = serviceWrapper.newUserRegistrationCall(id_number.getText().toString(), fname.getText().toString(), lname.getText().toString(),
-                    email.getText().toString(), phone_no.getText().toString(),"username" , amount.getText().toString().trim(), password.getText().toString());
+                    email.getText().toString(), phone_no.getText().toString(),dob.getText().toString() , amount.getText().toString().trim(), password.getText().toString());
             callNewREgistration.enqueue(new Callback<NewUserRegistration>() {
                 @Override
                 public void onResponse(Call<NewUserRegistration> call, Response<NewUserRegistration> response) {

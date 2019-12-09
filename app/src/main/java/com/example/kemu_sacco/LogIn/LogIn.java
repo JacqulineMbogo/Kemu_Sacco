@@ -68,7 +68,7 @@ public class LogIn extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( DataValidation.isNotValidID(id_number.getText().toString())){
+                if ( DataValidation.isNotValidLName(id_number.getText().toString())){
                     Toast.makeText(getApplicationContext(),"Invalid id number",Toast.LENGTH_LONG).show();
 
                 }else if (DataValidation.isNotValidPassword(password.getText().toString())){

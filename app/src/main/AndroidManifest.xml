@@ -28,6 +28,8 @@
         <activity android:name=".Contributions.contributions_home"/>
         <activity android:name=".Loans.loans_home"/>
         <activity android:name=".Loans.loan_payments_home"/>
+        <activity android:name=".Feedback.feedback"/>
+        <activity android:name=".Feedback.FeedbackHistory"/>
     </application>
 
 </manifest>

@@ -14,6 +14,8 @@ import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.NextofKinRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
+import com.example.kemu_sacco.beanResponse.feedbackAPI;
+import com.example.kemu_sacco.beanResponse.feedhistoryAPI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -126,6 +128,15 @@ public class ServiceWrapper  {
     public RequestBody convertPlainString(String data){
         RequestBody plainString = RequestBody.create(MediaType.parse("text/plain"), data);
         return  plainString;
+    }
+
+    public Call<feedbackAPI> feedbackcall(String securcode, String feed_title , String feed_comment, String user_id){
+        return mServiceInterface. feedbackcall(convertPlainString(securcode), convertPlainString(feed_title) , convertPlainString(feed_comment), convertPlainString(user_id) );
+    }
+
+    // get feedback history
+    public Call<feedhistoryAPI> getfeedhistorycall(String securcode, String user_id){
+        return mServiceInterface.getfeedhistorycall(convertPlainString(securcode), convertPlainString(user_id) );
     }
 
 }
