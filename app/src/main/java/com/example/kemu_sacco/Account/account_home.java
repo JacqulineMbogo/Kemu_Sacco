@@ -58,6 +58,8 @@ public class account_home extends AppCompatActivity {
         recycler_kin.setLayoutManager(mLayoutManger3);
         recycler_kin.setItemAnimator(new DefaultItemAnimator());
 
+
+
         kinAdapter= new Kin_Adapter(kinModels,this);
         recycler_kin.setAdapter(kinAdapter);
 
