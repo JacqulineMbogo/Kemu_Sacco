@@ -31,6 +31,7 @@
         <activity android:name=".Feedback.feedback"/>
         <activity android:name=".Feedback.FeedbackHistory"/>
         <activity android:name=".Account.account_home"/>
+        <activity android:name=".Withdrawals.withdraw_home"/>
     </application>
 
 </manifest>

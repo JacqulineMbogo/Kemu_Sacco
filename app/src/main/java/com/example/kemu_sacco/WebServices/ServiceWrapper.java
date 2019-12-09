@@ -5,6 +5,7 @@ import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.GetWithdrawalsRes;
 import com.example.kemu_sacco.beanResponse.KinRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.example.kemu_sacco.beanResponse.LoanTypeRes;
@@ -15,6 +16,7 @@ import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.NextofKinRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
+import com.example.kemu_sacco.beanResponse.WithdrawRes;
 import com.example.kemu_sacco.beanResponse.feedbackAPI;
 import com.example.kemu_sacco.beanResponse.feedhistoryAPI;
 import com.google.gson.Gson;
@@ -143,6 +145,15 @@ public class ServiceWrapper  {
     ///  get kin
     public Call<KinRes> KinResCall(String securecode, String user_id){
         return mServiceInterface.KinResCall(convertPlainString(securecode), convertPlainString(user_id));
+    }
+
+    ///  get withdrawals
+    public Call<GetWithdrawalsRes> GetWithdrawalsResCall(String securecode, String user_id){
+        return mServiceInterface.GetWithdrawalsResCall(convertPlainString(securecode), convertPlainString(user_id));
+    }
+    ///  get kin
+    public Call<WithdrawRes> WithdrawResCall(String securecode, String amount,String user_id){
+        return mServiceInterface.WithdrawResCall(convertPlainString(securecode), convertPlainString(amount),convertPlainString(user_id));
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.kemu_sacco.WebServices;
 
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.GetWithdrawalsRes;
 import com.example.kemu_sacco.beanResponse.KinRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.example.kemu_sacco.beanResponse.LoanTypeRes;
@@ -13,6 +14,7 @@ import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.NextofKinRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
+import com.example.kemu_sacco.beanResponse.WithdrawRes;
 import com.example.kemu_sacco.beanResponse.feedbackAPI;
 import com.example.kemu_sacco.beanResponse.feedhistoryAPI;
 
@@ -160,6 +162,22 @@ public interface ServiceInterface {
     @POST("kemu_sacco/getUserKin.php")
     Call<KinRes> KinResCall(
             @Part("securecode") RequestBody securecode,
+            @Part("user_id") RequestBody user_id
+    );
+    ///  get withdrawals
+    @Multipart
+    @POST("kemu_sacco/getWithdrawals.php")
+    Call<GetWithdrawalsRes> GetWithdrawalsResCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("user_id") RequestBody user_id
+    );
+
+    ///  send withdrawals
+    @Multipart
+    @POST("kemu_sacco/save_withdrawals.php")
+    Call<WithdrawRes> WithdrawResCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("amount") RequestBody amount,
             @Part("user_id") RequestBody user_id
     );
 

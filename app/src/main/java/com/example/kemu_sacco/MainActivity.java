@@ -12,10 +12,11 @@ import com.example.kemu_sacco.Account.account_home;
 import com.example.kemu_sacco.Contributions.contributions_home;
 import com.example.kemu_sacco.Feedback.FeedbackHistory;
 import com.example.kemu_sacco.Loans.loans_home;
+import com.example.kemu_sacco.Withdrawals.withdraw_home;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button contributions, loans, account, feedback;
+    Button contributions, loans, account, feedback, withdraw;
 
 
     @Override
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         loans = findViewById(R.id.loans);
         account = findViewById(R.id.account);
         feedback = findViewById(R.id.feedback);
+        withdraw = findViewById(R.id.withdraw);
 
         contributions.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        withdraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent( MainActivity.this, withdraw_home.class);
+                startActivity(intent);
+
+            }
+        });
         account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

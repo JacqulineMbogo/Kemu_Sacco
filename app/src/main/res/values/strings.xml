@@ -50,6 +50,9 @@
     <string name="username">Username</string>
     <string name="phone">Phone Number</string>
     <string name="next_of_kin">Next Of Kin</string>
+    <string name="withdraw">Withdrawals \n $  Balances</string>
+    <string name="withdraw_id">Withdraw Id</string>
+    <string name="newwithdraw">Withdraw</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>
