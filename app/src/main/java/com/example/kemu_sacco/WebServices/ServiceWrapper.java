@@ -5,6 +5,7 @@ import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.KinRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.example.kemu_sacco.beanResponse.LoanTypeRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
@@ -137,6 +138,11 @@ public class ServiceWrapper  {
     // get feedback history
     public Call<feedhistoryAPI> getfeedhistorycall(String securcode, String user_id){
         return mServiceInterface.getfeedhistorycall(convertPlainString(securcode), convertPlainString(user_id) );
+    }
+
+    ///  get kin
+    public Call<KinRes> KinResCall(String securecode, String user_id){
+        return mServiceInterface.KinResCall(convertPlainString(securecode), convertPlainString(user_id));
     }
 
 }

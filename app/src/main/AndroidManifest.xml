@@ -30,6 +30,7 @@
         <activity android:name=".Loans.loan_payments_home"/>
         <activity android:name=".Feedback.feedback"/>
         <activity android:name=".Feedback.FeedbackHistory"/>
+        <activity android:name=".Account.account_home"/>
     </application>
 
 </manifest>

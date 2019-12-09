@@ -3,6 +3,7 @@ package com.example.kemu_sacco.WebServices;
 
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.KinRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
 import com.example.kemu_sacco.beanResponse.LoanTypeRes;
 import com.example.kemu_sacco.beanResponse.LoansApplicationRes;
@@ -154,6 +155,13 @@ public interface ServiceInterface {
             @Part("user_id") RequestBody user_id
     );
 
+    ///  get next of kin
+    @Multipart
+    @POST("kemu_sacco/getUserKin.php")
+    Call<KinRes> KinResCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("user_id") RequestBody user_id
+    );
 
 }
 

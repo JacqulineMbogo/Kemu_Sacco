@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.kemu_sacco.Account.account_home;
 import com.example.kemu_sacco.Contributions.contributions_home;
 import com.example.kemu_sacco.Feedback.FeedbackHistory;
 import com.example.kemu_sacco.Loans.loans_home;
@@ -37,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent1 = new Intent( MainActivity.this, account_home.class);
+                startActivity(intent1);
+            }
+        });
         loans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

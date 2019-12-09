@@ -45,6 +45,11 @@
     <string name="feed">Feedback</string>
     <string name="skip">Skip</string>
     <string name="network_error">Network error</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone Number</string>
+    <string name="next_of_kin">Next Of Kin</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>
