@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/kin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kin"
+        android:layout_margin="@dimen/padding_large"
+        android:padding="@dimen/padding_small"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextname"
+        android:paddingLeft="@dimen/padding_small"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:paddingTop="@dimen/padding_small"
+        android:layout_below="@+id/kin"
+        android:inputType="text"
+        android:layout_marginLeft="@dimen/padding_too_large"
+        android:layout_marginRight="@dimen/padding_too_large"
+        android:layout_marginTop="@dimen/padding_extralarge"
+        android:hint="@string/nextname"/>
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextrelation"
+        android:paddingLeft="@dimen/padding_small"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:paddingTop="@dimen/padding_small"
+        android:layout_below="@+id/kin"
+        android:inputType="text"
+        android:layout_toEndOf="@+id/nextname"
+        android:layout_marginLeft="@dimen/padding_too_large"
+        android:layout_marginRight="@dimen/padding_too_large"
+        android:layout_marginTop="@dimen/padding_extralarge"
+        android:hint="@string/relation"
+        android:layout_toRightOf="@+id/nextname" />
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextnumber"
+        android:paddingLeft="@dimen/padding_small"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:paddingTop="@dimen/padding_small"
+        android:layout_below="@+id/nextname"
+        android:inputType="number"
+        android:layout_marginLeft="@dimen/padding_too_large"
+        android:layout_marginRight="@dimen/padding_too_large"
+        android:layout_marginTop="@dimen/padding_extralarge"
+        android:hint="@string/phone_no"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextid"
+        android:paddingLeft="@dimen/padding_small"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:paddingTop="@dimen/padding_small"
+        android:layout_below="@+id/nextname"
+        android:layout_toEndOf="@+id/nextnumber"
+        android:layout_marginLeft="@dimen/padding_too_large"
+        android:layout_marginRight="@dimen/padding_too_large"
+        android:layout_marginTop="@dimen/padding_extralarge"
+        android:hint="ID No"
+        android:inputType="number"
+        android:layout_toRightOf="@+id/f_name" />
+
+
+    <LinearLayout
+        android:layout_below="@id/nextid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:padding="@dimen/padding_medium"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:background="@drawable/rounded_blue"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:padding="@dimen/padding_medium"
+            android:layout_margin="@dimen/padding_large"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:background="@drawable/rounded_blue"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:padding="@dimen/padding_medium"
+            android:layout_margin="@dimen/padding_large"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

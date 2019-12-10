@@ -58,7 +58,6 @@
             android:paddingTop="@dimen/padding_small"
             android:layout_below="@+id/text"
             android:layout_toEndOf="@+id/id_number"
-           android:editable="false"
             android:layout_marginLeft="@dimen/padding_too_large"
             android:layout_marginRight="@dimen/padding_too_large"
             android:layout_marginTop="@dimen/padding_extralarge"

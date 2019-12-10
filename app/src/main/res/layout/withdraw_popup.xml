@@ -1,6 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_withdraw"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:padding="@dimen/padding_medium"/>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:padding="@dimen/padding_medium"
+        android:orientation="horizontal"
+        >
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="bold"
+            />
+        <EditText
+            android:id="@+id/withdrawamount"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_large"
+        android:padding="@dimen/padding_medium"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:background="@drawable/rounded_blue"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:padding="@dimen/padding_medium"
+            android:layout_margin="@dimen/padding_large"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:background="@drawable/rounded_blue"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:padding="@dimen/padding_medium"
+            android:layout_margin="@dimen/padding_large"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"/>
+
+
+    </LinearLayout>
 </LinearLayout>

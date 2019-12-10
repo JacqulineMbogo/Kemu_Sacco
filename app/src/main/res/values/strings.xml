@@ -53,6 +53,7 @@
     <string name="withdraw">Withdrawals \n $  Balances</string>
     <string name="withdraw_id">Withdraw Id</string>
     <string name="newwithdraw">Withdraw</string>
+    <string name="new_withdraw">Cash withdraw</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>

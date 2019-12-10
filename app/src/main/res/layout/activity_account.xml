@@ -236,11 +236,16 @@
 
 
         </LinearLayout>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
             android:padding="@dimen/padding_medium"
             android:layout_margin="@dimen/padding_medium"
             android:text="@string/next_of_kin"
@@ -248,7 +253,21 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimary" />
 
+    <TextView
+        android:id="@+id/newkin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_gravity="center"
+        android:background="@drawable/rounder_small_blue"
+        android:gravity="end"
+        android:text="ADD KIN"
+        android:visibility="gone"
+        android:textColor="@color/white"
 
+        />
+
+</LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
 
             android:layout_width="match_parent"

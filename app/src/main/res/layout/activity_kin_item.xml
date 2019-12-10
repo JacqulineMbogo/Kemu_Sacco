@@ -99,13 +99,14 @@
                android:id="@+id/edit"
                android:layout_width="0dp"
                android:layout_weight="1"
+               android:visibility="gone"
                android:layout_height="wrap_content"
                android:layout_marginLeft="@dimen/padding_small"
                android:src="@mipmap/baseline_create_black_24dp" />
 
            <ImageView
                android:id="@+id/delete"
-               android:visibility="gone"
+
                android:layout_width="0dp"
                android:layout_weight="1"
                android:layout_height="wrap_content"

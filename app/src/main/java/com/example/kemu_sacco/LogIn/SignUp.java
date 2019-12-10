@@ -106,9 +106,27 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "passwords do not match", Toast.LENGTH_LONG).show();
 
 
+                } else  if (DataValidation.isNotValidLName(nextname.getText().toString())) {
+                    /// show error pupup
+                    Toast.makeText(getApplicationContext(), "Invalid next of kin name", Toast.LENGTH_LONG).show();
+
+                } else   if (DataValidation.isNotValidFullName(nextrelation.getText().toString())) {
+                    /// show error pupup
+                    Toast.makeText(getApplicationContext(), "Invalid next of kin relation", Toast.LENGTH_LONG).show();
+
+                } else   if (DataValidation.isValidPhoneNumber(nextnumber.getText().toString())) {
+                    /// show error pupup
+                    Toast.makeText(getApplicationContext(), "Invalid next of kin phone number", Toast.LENGTH_LONG).show();
+
+                } else    if (DataValidation.isNotValidID(nextid.getText().toString())) {
+                    /// show error pupup
+                    Toast.makeText(getApplicationContext(), "Invalid next of kin  id", Toast.LENGTH_LONG).show();
+
+                } else if (amount.getText().toString().isEmpty()) {
+                    /// show error pupup
+                    Toast.makeText(getApplicationContext(), "Invalid share amount", Toast.LENGTH_LONG).show();
+
                 } else {
-                    // network connection and progroess dialog
-                    /// here call retrofit method
 
                     sendNewRegistrationReq();
                 }

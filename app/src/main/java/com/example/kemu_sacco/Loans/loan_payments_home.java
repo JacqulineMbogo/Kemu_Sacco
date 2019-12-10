@@ -135,8 +135,13 @@ public class loan_payments_home extends AppCompatActivity {
                     public void afterTextChanged(Editable s) {
 
 
-                        codelinear.setVisibility(View.VISIBLE);
+                        if( s.toString().trim().equals("")){
 
+                            codelinear.setVisibility(View.GONE);
+                            Toast.makeText(context, "Enter a value", Toast.LENGTH_SHORT).show();
+                        }else {
+                            codelinear.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
 

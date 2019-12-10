@@ -220,13 +220,19 @@ public class loans_home extends AppCompatActivity {
                     @Override
                     public void afterTextChanged(Editable s) {
 
-                        if(Integer.valueOf(s.toString()) > Integer.valueOf(sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS))){
+                        if( s.toString().trim().equals("")){
 
 
-                            AppUtilits.displayMessage(loans_home.this, "Maximum amount you can borrow is Ksh" + " " +  sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS));
-                            amount.setText("0");
+                            Toast.makeText(context, "Enter a value", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            if (Integer.valueOf(s.toString()) > Integer.valueOf(sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS))) {
+
+
+                                AppUtilits.displayMessage(loans_home.this, "Maximum amount you can borrow is Ksh" + " " + sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS));
+                                amount.setText("0");
+                            }
                         }
-
 
 
                     }

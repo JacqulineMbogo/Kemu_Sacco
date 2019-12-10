@@ -44,7 +44,6 @@
             android:textSize="18sp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/rounder_small_blue"
-
             android:gravity="center_horizontal"
             android:text="New feedback"
             android:textColor="@color/white"
