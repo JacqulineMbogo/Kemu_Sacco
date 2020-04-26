@@ -74,6 +74,7 @@ public class Kin_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemCount() {
+
         return kin_models.size();
     }
 }

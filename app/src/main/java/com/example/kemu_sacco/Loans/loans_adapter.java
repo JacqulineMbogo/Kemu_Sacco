@@ -33,7 +33,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private class loansView extends RecyclerView.ViewHolder {
 
-        TextView application_id,loan_type, amount,application_date,status;
+        TextView application_id,loan_type, amount,application_date,status, comment;
         CardView loancard;
 
 
@@ -46,6 +46,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
             application_date =  itemView.findViewById(R.id.loandate);
             loancard = itemView.findViewById(R.id.loancard);
             status = itemView.findViewById(R.id.status);
+            comment = itemView.findViewById(R.id.comment);
 
         }
     }
@@ -67,6 +68,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((loansView) holder).loan_type.setText(" Loan Type: " + " " +model.getLoan_id());
         ((loansView) holder).application_date.setText(" Date Applied: " + " " +model.getDate());
         ((loansView) holder).status.setText(" Status: " + " " +model.getStatus());
+        ((loansView) holder).comment.setText(model.getComment());
 
         ((loansView) holder).loancard.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,7 +19,7 @@
     <string name="retype_password">Confirm password</string>
     <string name="existing">Existing User?</string>
 
-    <string name="contribution">Savings and  \n Contributions</string>
+    <string name="contribution">Contributions</string>
     <string name="loans">Loans</string>
     <string name="add_contribution">Add Contribution</string>
     <string name="new_contribution">Add Contribution</string>
@@ -50,10 +50,13 @@
     <string name="username">Username</string>
     <string name="phone">Phone Number</string>
     <string name="next_of_kin">Next Of Kin</string>
-    <string name="withdraw">Withdrawals \n $  Balances</string>
+    <string name="withdraw">Withdrawals </string>
     <string name="withdraw_id">Withdraw Id</string>
     <string name="newwithdraw">Withdraw</string>
     <string name="new_withdraw">Cash withdraw</string>
+    <string name="contributions">Contributions</string>
+    <string name="savings">Savings</string>
+    <string name="deposits">Monthly Deposits</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>

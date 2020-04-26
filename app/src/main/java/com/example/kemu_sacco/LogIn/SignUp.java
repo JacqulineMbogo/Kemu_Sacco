@@ -81,32 +81,42 @@ public class SignUp extends AppCompatActivity {
 
                 if (DataValidation.isNotValidID(id_number.getText().toString())) {
                     /// show error pupup
-                    Toast.makeText(getApplicationContext(), "Invalid id", Toast.LENGTH_LONG).show();
+                    id_number.setError("Invalid id");
+                  //  Toast.makeText(getApplicationContext(), "Invalid id", Toast.LENGTH_LONG).show();
 
                 } else if (DataValidation.isNotValidLName(dob.getText().toString())) {
                     /// show error pupup
-                    Toast.makeText(getApplicationContext(), "Invalid username", Toast.LENGTH_LONG).show();
+                    dob.setError("Invalid username");
+                    //Toast.makeText(getApplicationContext(), "Invalid username", Toast.LENGTH_LONG).show();
 
                 }else if (DataValidation.isNotValidLName(fname.getText().toString())) {
                     /// show error pupup
-                    Toast.makeText(getApplicationContext(), "Invalid first name", Toast.LENGTH_LONG).show();
+                    fname.setError("Invalid first name");
+                 //   Toast.makeText(getApplicationContext(), "Invalid first name", Toast.LENGTH_LONG).show();
                 } else if (DataValidation.isNotValidFullName(lname.getText().toString())) {
                     /// show error pupup
-                    Toast.makeText(getApplicationContext(), "Invalid last name", Toast.LENGTH_LONG).show();
+                    lname.setError("Invalid last name");
+                //    Toast.makeText(getApplicationContext(), "Invalid last name", Toast.LENGTH_LONG).show();
                 } else if (DataValidation.isValidPhoneNumber(phone_no.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "Invalid phone number.", Toast.LENGTH_LONG).show();
+                    phone_no.setError("Invalid phone number");
+                  //  Toast.makeText(getApplicationContext(), "Invalid phone number.", Toast.LENGTH_LONG).show();
 
                 } else if (DataValidation.isNotValidemail(email.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_LONG).show();
+
+                    email.setError("Invalid email");
+                  //  Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_LONG).show();
 
                 } else if (DataValidation.isNotValidPassword(password.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "Password should be at least 6 characters ", Toast.LENGTH_LONG).show();
+                    password.setError("Password should be at least 6 characters ");
+                 //   Toast.makeText(getApplicationContext(), "Password should be at least 6 characters ", Toast.LENGTH_LONG).show();
 
                 } else if (!password.getText().toString().equals(retype_password.getText().toString())) {
-                    Toast.makeText(getApplicationContext(), "passwords do not match", Toast.LENGTH_LONG).show();
+
+                    retype_password.setError("passwords do not match");
+               //     Toast.makeText(getApplicationContext(), "passwords do not match", Toast.LENGTH_LONG).show();
 
 
-                } else  if (DataValidation.isNotValidLName(nextname.getText().toString())) {
+                } /*else  if (DataValidation.isNotValidLName(nextname.getText().toString())) {
                     /// show error pupup
                     Toast.makeText(getApplicationContext(), "Invalid next of kin name", Toast.LENGTH_LONG).show();
 
@@ -126,7 +136,7 @@ public class SignUp extends AppCompatActivity {
                     /// show error pupup
                     Toast.makeText(getApplicationContext(), "Invalid share amount", Toast.LENGTH_LONG).show();
 
-                } else {
+                } */else {
 
                     sendNewRegistrationReq();
                 }
@@ -166,14 +176,14 @@ public class SignUp extends AppCompatActivity {
                             sharedPreferenceActivity.putItem(Constant.USER_phone, response.body().getInformation().getPhoneNumber());
 
 
-                            sendNextofKin();
-                       /*     // start home activity
+                      //      sendNextofKin();
+                            // start home activity
 
                             AppUtilits.createToaster(SignUp.this, "Welcome, " + sharedPreferenceActivity.getItem(Constant.FIRST_NAME) +  " " + sharedPreferenceActivity.getItem(Constant.LAST_NAME) + "\n Please continue to sign in upon admin approval", Toast.LENGTH_LONG);
                             Intent intent = new Intent(SignUp.this, LogIn.class);
 
                             startActivity(intent);
-                            finish();*/
+                            finish();
 
                         } else {
                             AppUtilits.destroyDialog(progressbar);

@@ -32,6 +32,7 @@
         <activity android:name=".Feedback.FeedbackHistory"/>
         <activity android:name=".Account.account_home"/>
         <activity android:name=".Withdrawals.withdraw_home"/>
+        <activity android:name=".Deposits.deposits_home"/>
     </application>
 
 </manifest>

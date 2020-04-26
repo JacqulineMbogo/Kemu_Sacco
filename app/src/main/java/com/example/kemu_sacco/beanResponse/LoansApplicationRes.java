@@ -58,7 +58,9 @@ public class LoansApplicationRes {
         @SerializedName("loan_id")
         @Expose
         private String loanId;
-
+        @SerializedName("comment")
+        @Expose
+        private String comment;
         public String getApplicationId() {
             return applicationId;
         }
@@ -99,5 +101,12 @@ public class LoansApplicationRes {
             this.loanId = loanId;
         }
 
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.example.kemu_sacco.WebServices;
 
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.DepositRes;
 import com.example.kemu_sacco.beanResponse.GetWithdrawalsRes;
 import com.example.kemu_sacco.beanResponse.KinRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
@@ -12,6 +13,7 @@ import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.NextofKinRes;
+import com.example.kemu_sacco.beanResponse.RegstatusRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 import com.example.kemu_sacco.beanResponse.WithdrawRes;
@@ -47,6 +49,13 @@ public interface ServiceInterface {
             @Part("password") RequestBody password
     );
 
+    ///  reg response
+    @Multipart
+    @POST("kemu_sacco/reg_status.php")
+    Call<RegstatusRes> RegstatusCall(
+            @Part("securecode") RequestBody securecode,
+            @Part("user_id") RequestBody user_id
+    );
     ///  get all contributions
     @Multipart
     @POST("kemu_sacco/get_all_contributions.php")
@@ -178,6 +187,14 @@ public interface ServiceInterface {
     Call<WithdrawRes> WithdrawResCall(
             @Part("securecode") RequestBody securecode,
             @Part("amount") RequestBody amount,
+            @Part("user_id") RequestBody user_id
+    );
+
+    ///  deposit response
+    @Multipart
+    @POST("kemu_sacco/getdeposit.php")
+    Call<DepositRes> DepositResCall(
+            @Part("securecode") RequestBody securecode,
             @Part("user_id") RequestBody user_id
     );
 

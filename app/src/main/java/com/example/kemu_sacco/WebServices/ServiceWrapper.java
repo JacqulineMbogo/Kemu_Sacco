@@ -5,6 +5,7 @@ import com.example.kemu_sacco.BuildConfig;
 import com.example.kemu_sacco.Utility.Constant;
 import com.example.kemu_sacco.beanResponse.ContributionRes;
 import com.example.kemu_sacco.beanResponse.ContributionTypeRes;
+import com.example.kemu_sacco.beanResponse.DepositRes;
 import com.example.kemu_sacco.beanResponse.GetWithdrawalsRes;
 import com.example.kemu_sacco.beanResponse.KinRes;
 import com.example.kemu_sacco.beanResponse.LoanPaymentsRes;
@@ -14,6 +15,7 @@ import com.example.kemu_sacco.beanResponse.MakeLoanPaymentRes;
 import com.example.kemu_sacco.beanResponse.NewLoanApplicationRes;
 import com.example.kemu_sacco.beanResponse.NewUserRegistration;
 import com.example.kemu_sacco.beanResponse.NextofKinRes;
+import com.example.kemu_sacco.beanResponse.RegstatusRes;
 import com.example.kemu_sacco.beanResponse.SaveContributionRes;
 import com.example.kemu_sacco.beanResponse.UserSignInRes;
 import com.example.kemu_sacco.beanResponse.WithdrawRes;
@@ -80,6 +82,10 @@ public class ServiceWrapper  {
         return mServiceInterface.UserSigninCall(convertPlainString(id_number), convertPlainString(password));
     }
 
+    ///  user signin
+    public Call<RegstatusRes> RegstatusCall(String securecode, String user_id){
+        return mServiceInterface.RegstatusCall(convertPlainString(securecode), convertPlainString(user_id));
+    }
     ///  get all contributions
     public Call<ContributionRes> ContributionCall(String securecode, String user_id){
         return mServiceInterface.ContributionCall(convertPlainString(securecode), convertPlainString(user_id));
@@ -154,6 +160,11 @@ public class ServiceWrapper  {
     ///  get kin
     public Call<WithdrawRes> WithdrawResCall(String securecode, String amount,String user_id){
         return mServiceInterface.WithdrawResCall(convertPlainString(securecode), convertPlainString(amount),convertPlainString(user_id));
+    }
+
+    ///  deposits res
+    public Call<DepositRes> DepositResCall(String securecode, String user_id){
+        return mServiceInterface.DepositResCall(convertPlainString(securecode), convertPlainString(user_id));
     }
 
 }

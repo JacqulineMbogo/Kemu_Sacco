@@ -185,8 +185,8 @@ public class account_home extends AppCompatActivity {
                             AppUtilits.destroyDialog(progressbar);
 
 
-                            AppUtilits.createToaster(account_home.this, "Welcome, " + sharedPreferenceActivity.getItem(Constant.FIRST_NAME) +  " " + sharedPreferenceActivity.getItem(Constant.LAST_NAME) + "\n Please continue to sign in upon admin approval", Toast.LENGTH_LONG);
-                            Intent intent = new Intent(account_home.this, LogIn.class);
+                            AppUtilits.createToaster(account_home.this,  " Next of kin registered successfully", Toast.LENGTH_LONG);
+                            Intent intent = new Intent(account_home.this, account_home.class);
 
                             startActivity(intent);
                             finish();

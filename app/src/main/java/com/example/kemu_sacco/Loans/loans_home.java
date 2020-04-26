@@ -61,6 +61,7 @@ public class loans_home extends AppCompatActivity {
     private ArrayList<loans_model> loansModels = new ArrayList<>();
 
     private ArrayList<loan_type_model> loanTypeModels = new ArrayList<>();
+    public  int limit;
 
 
     @Override
@@ -118,6 +119,7 @@ public class loans_home extends AppCompatActivity {
 
 
                 final EditText amount = view.findViewById(R.id.contributionamount);
+                final  TextView loan_limit = view.findViewById(R.id.loan_limit);
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
                 final Spinner loanspinner  = view.findViewById(R.id.loantypespinner);
@@ -129,6 +131,9 @@ public class loans_home extends AppCompatActivity {
 
 
                 } else {
+
+                     limit =  (Integer.valueOf(sharedPreferenceActivity.getItem(Constant.DEPOSIT) ) - Integer.valueOf(sharedPreferenceActivity.getItem(Constant.TOTAL_LOANS)) ) * 3;
+                    loan_limit.setText("Your Loan Limit is " + limit);
                     progressbar.setVisibility(View.GONE);
                     //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
                     ServiceWrapper service = new ServiceWrapper(null);
@@ -226,10 +231,10 @@ public class loans_home extends AppCompatActivity {
                             Toast.makeText(context, "Enter a value", Toast.LENGTH_SHORT).show();
                         }else {
 
-                            if (Integer.valueOf(s.toString()) > Integer.valueOf(sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS))) {
+                            if (Integer.valueOf(s.toString()) > limit) {
 
 
-                                AppUtilits.displayMessage(loans_home.this, "Maximum amount you can borrow is Ksh" + " " + sharedPreferenceActivity.getItem(Constant.TOTAL_CONTRIBUTIONS));
+                                AppUtilits.displayMessage(loans_home.this, "Maximum amount you can borrow is Ksh" + " " + limit);
                                 amount.setText("0");
                             }
                         }
@@ -342,18 +347,23 @@ public class loans_home extends AppCompatActivity {
                                 for (int i =0; i<response.body().getInformation().size(); i++){
 
 
-                                    loansModels.add(  new loans_model(response.body().getInformation().get(i).getApplicationId(),response.body().getInformation().get(i).getAmount(),response.body().getInformation().get(i).getDate(),response.body().getInformation().get(i).getStatus(),response.body().getInformation().get(i).getLoanId() ));
+                                    loansModels.add(  new loans_model(response.body().getInformation().get(i).getApplicationId(),response.body().getInformation().get(i).getAmount(),response.body().getInformation().get(i).getDate(),response.body().getInformation().get(i).getStatus(),response.body().getInformation().get(i).getLoanId(),response.body().getInformation().get(i).getComment() ));
 
                                 }
                                loans_adapter.notifyDataSetChanged();
+                            }else {
+
+                                sharedPreferenceActivity.putItem(Constant.TOTAL_LOANS, "0");
                             }
 
                         } else {
                             progressbar.setVisibility(View.GONE);
+                            sharedPreferenceActivity.putItem(Constant.TOTAL_LOANS, "0");
                             AppUtilits.displayMessage(loans_home.this, response.body().getMsg());
                         }
                     } else {
                         progressbar.setVisibility(View.GONE);
+                        sharedPreferenceActivity.putItem(Constant.TOTAL_LOANS, "0");
                         Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_LONG).show();
                     }
 

@@ -2,14 +2,15 @@ package com.example.kemu_sacco.Loans;
 
 public class loans_model {
 
-    private  String  application_id, amount, date,status, loan_id;
+    private  String  application_id, amount, date,status, loan_id, comment;
 
-    public loans_model(String application_id, String amount, String date, String status, String loan_id) {
+    public loans_model(String application_id, String amount, String date, String status, String loan_id, String comment) {
         this.application_id = application_id;
         this.amount = amount;
         this.date = date;
         this.status = status;
         this.loan_id = loan_id;
+        this.comment = comment;
     }
 
     public void setApplication_id(String application_id) {
@@ -50,5 +51,13 @@ public class loans_model {
 
     public String getLoan_id() {
         return loan_id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }
