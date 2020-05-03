@@ -187,7 +187,7 @@ public class LogIn extends AppCompatActivity {
 
 
                             AppUtilits.destroyDialog(progressbar);
-                            getUserKin();
+                            getUserKin(response.body().getInformation().getUserId());
                             // start home activity
                          /*   Intent intent = new Intent(LogIn.this, MainActivity.class);
                             startActivity(intent);
@@ -229,7 +229,7 @@ public class LogIn extends AppCompatActivity {
 
     }
 
-    public  void  getUserKin(){
+    public  void  getUserKin(String userId){
 
         if (!NetworkUtility.isNetworkConnected(LogIn.this)){
             Toast.makeText(getApplicationContext(),"Network error",Toast.LENGTH_LONG).show();
@@ -238,7 +238,7 @@ public class LogIn extends AppCompatActivity {
 
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<KinRes> call = service.KinResCall( "1234" , sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            Call<KinRes> call = service.KinResCall( "1234" , userId);
 
             call.enqueue(new Callback<KinRes>() {
                 @Override

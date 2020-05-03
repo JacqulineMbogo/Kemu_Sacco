@@ -115,7 +115,9 @@ public interface ServiceInterface {
             @Part("securecode") RequestBody securecode,
             @Part("loan_type_id") RequestBody loan_type_id,
             @Part("amount") RequestBody amount,
-            @Part("user_id") RequestBody user_id
+            @Part("user_id") RequestBody user_id,
+            @Part("duration") RequestBody duration,
+             @Part("total") RequestBody total
 
     );
 

@@ -55,13 +55,14 @@ public class loans_home extends AppCompatActivity {
     FloatingActionButton new_loan;
     ProgressBar progressbar;
     String TAG = "loans";
-    String pin, counts;
+    String pin, counts,time;
     SharedPreferenceActivity sharedPreferenceActivity;
     private  loans_adapter loans_adapter;
     private ArrayList<loans_model> loansModels = new ArrayList<>();
 
     private ArrayList<loan_type_model> loanTypeModels = new ArrayList<>();
     public  int limit;
+public double  interests,rate;
 
 
     @Override
@@ -123,6 +124,10 @@ public class loans_home extends AppCompatActivity {
                 final Button cancel = view.findViewById(R.id.cancel);
                 final Button okay = view.findViewById(R.id.ok);
                 final Spinner loanspinner  = view.findViewById(R.id.loantypespinner);
+                final EditText duration = view.findViewById(R.id.duration);
+                final TextView interest = view.findViewById(R.id.interest);
+
+
 
 
                 if (!NetworkUtility.isNetworkConnected(loans_home.this)) {
@@ -199,6 +204,8 @@ public class loans_home extends AppCompatActivity {
 
                         pin = parent.getItemAtPosition(position).toString();
                         counts= loanTypeModels.get(position).getLoan_type_id();
+                        rate = Double.parseDouble(loanTypeModels.get(position).getRate());
+                        time = loanTypeModels.get(position).getMax();
 
 
                     }
@@ -210,6 +217,40 @@ public class loans_home extends AppCompatActivity {
                 });
 
 
+               duration.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                        if( s.toString().trim().equals("")){
+
+
+                            Toast.makeText(context, "Enter duration value", Toast.LENGTH_SHORT).show();
+                        }else {
+
+                            if (Integer.valueOf(s.toString()) > Integer.valueOf(time)) {
+
+
+                            AppUtilits.displayMessage(loans_home.this, "Maximum duration for this loan is" + " " + time);
+                            duration.setText(time);
+                        }else{
+
+                                interests = (Integer.valueOf(amount.getText().toString()) * ( Integer.valueOf(duration.getText().toString()) * rate )) + Integer.valueOf(amount.getText().toString());
+                                interest.setText("Tolal loan amount to be paid is"+interests);
+                            }
+                         }
+                    }
+
+                });
 
                 amount.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -246,8 +287,17 @@ public class loans_home extends AppCompatActivity {
                 okay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        saveLoanApplication(counts, amount.getText().toString());
-                        dialog.cancel();
+
+                        if(amount.getText().toString().equals("")){
+                            Toast.makeText(context, "Enter amount value", Toast.LENGTH_SHORT).show();
+
+                        } else if (duration.getText().toString().equals("")) {
+                            Toast.makeText(context, "Enter duration value", Toast.LENGTH_SHORT).show();
+                        }else {
+                            saveLoanApplication(counts, amount.getText().toString(), duration.getText().toString(),interests);
+                            dialog.cancel();
+                        }
+
                     }
                 });
                 cancel.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +314,7 @@ public class loans_home extends AppCompatActivity {
 
     }
 
-    public void saveLoanApplication(String loantype, String amount){
+    public void saveLoanApplication(String loantype, String amount,String duration,Double interests){
 
         if (!NetworkUtility.isNetworkConnected(loans_home.this)){
             AppUtilits.displayMessage(loans_home.this,  getString(R.string.network_not_connected));
@@ -273,7 +323,7 @@ public class loans_home extends AppCompatActivity {
 
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<NewLoanApplicationRes> call = service.SaveNewLoanCall("12345", loantype,amount, sharedPreferenceActivity.getItem(Constant.USER_DATA));
+            Call<NewLoanApplicationRes> call = service.SaveNewLoanCall("12345", loantype,amount, sharedPreferenceActivity.getItem(Constant.USER_DATA),duration, "");
             call.enqueue(new Callback<NewLoanApplicationRes>() {
                 @Override
                 public void onResponse(Call<NewLoanApplicationRes> call, Response<NewLoanApplicationRes> response) {

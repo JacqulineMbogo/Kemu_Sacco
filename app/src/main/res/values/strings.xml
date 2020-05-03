@@ -57,6 +57,7 @@
     <string name="contributions">Contributions</string>
     <string name="savings">Savings</string>
     <string name="deposits">Monthly Deposits</string>
+    <string name="duration">Duration(months)</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>
