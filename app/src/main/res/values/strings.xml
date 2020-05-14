@@ -58,6 +58,7 @@
     <string name="savings">Savings</string>
     <string name="deposits">Monthly Deposits</string>
     <string name="duration">Duration(months)</string>
+    <string name="myaccount">My Account</string>
 
     <string-array name="contribution_types">
         <item>Education Fund</item>
@@ -67,4 +68,23 @@
         <item>Recreation Fund</item>
         <item>Retirement Fund</item>
          </string-array>
+
+    <string name="allhelp">FAQs
+i.	How to do contribution?
+To make contribution you go to the shares and choose the type of contribution you want to make; either shares contribution or social, them enters the details as stated there.
+ii.	How to request for loan?
+To ask for loan go to loan session and shoes the type of loan you want then submit your request and wait for the admin to approve it.
+iii.	Maximum amount of money a member can loan?
+To repay the loan go to loan and click on loan repayment and do the payment.
+iv.	How to repay loan?
+To repay the loan go to loan and click on loan repayment and do the payment.
+
+
+HELP
+	To make contribution you go to the shares and choose the type of contribution you want to make; either shares contribution or social, them enters the details as stated there.
+	To ask for loan go to loan session and shoes the type of loan you want then submit your request and wait for the admin to approve it.
+	You can borrow three times the amount of shares you have contributed.
+	To repay the loan go to loan and click on loan repayment and do the payment.
+</string>
+    <string name="help">Help</string>
 </resources>

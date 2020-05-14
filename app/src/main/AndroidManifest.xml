@@ -33,6 +33,8 @@
         <activity android:name=".Account.account_home"/>
         <activity android:name=".Withdrawals.withdraw_home"/>
         <activity android:name=".Deposits.deposits_home"/>
+        <activity android:name=".help_home"/>
+        <activity android:name=".my_account"/>
     </application>
 
 </manifest>

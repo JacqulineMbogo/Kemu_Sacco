@@ -16,6 +16,7 @@ import com.example.kemu_sacco.Contributions.contributions_home;
 import com.example.kemu_sacco.Deposits.deposit_model;
 import com.example.kemu_sacco.Deposits.deposits_home;
 import com.example.kemu_sacco.Feedback.FeedbackHistory;
+import com.example.kemu_sacco.Loans.loan_payments_home;
 import com.example.kemu_sacco.Loans.loans_home;
 import com.example.kemu_sacco.Utility.AppUtilits;
 import com.example.kemu_sacco.Utility.Constant;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button contributions, loans, account, feedback, withdraw,deposits;
+    Button contributions, loans, account, feedback, withdraw,deposits,help,myaccount,payments;
     SharedPreferenceActivity sharedPreferenceActivity;
     Context context;
     String TAG =  "Mainactivity";
@@ -50,6 +51,31 @@ public class MainActivity extends AppCompatActivity {
         feedback = findViewById(R.id.feedback);
         withdraw = findViewById(R.id.withdraw);
         deposits = findViewById(R.id.deposit);
+        help = findViewById(R.id.help);
+        myaccount = findViewById(R.id.myaccount);
+        payments = findViewById(R.id.loanpayments);
+
+
+
+        payments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent( MainActivity.this, loan_payments_home.class);
+
+                intent.putExtra("application_id", "");
+                intent.putExtra("loan_amount", "0");
+                intent.putExtra("loan_type", "Short Term");
+                startActivity(intent);
+            }
+        });
+
+        myaccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent00= new Intent( MainActivity.this, my_account.class);
+                startActivity(intent00);
+            }
+        });
 
 
         contributions.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +124,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent1 = new Intent( MainActivity.this, FeedbackHistory.class);
+                startActivity(intent1);
+            }
+        });
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent1 = new Intent( MainActivity.this, help_home.class);
                 startActivity(intent1);
             }
         });

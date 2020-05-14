@@ -62,7 +62,7 @@ public class loans_home extends AppCompatActivity {
 
     private ArrayList<loan_type_model> loanTypeModels = new ArrayList<>();
     public  int limit;
-public double  interests,rate;
+public double  interests,rate,monthly;
 
 
     @Override
@@ -137,7 +137,14 @@ public double  interests,rate;
 
                 } else {
 
-                     limit =  (Integer.valueOf(sharedPreferenceActivity.getItem(Constant.DEPOSIT) ) - Integer.valueOf(sharedPreferenceActivity.getItem(Constant.TOTAL_LOANS)) ) * 3;
+                    if(Integer.valueOf(sharedPreferenceActivity.getItem(Constant.DEPOSIT) ) < 20000){
+                        limit = 0;
+
+                    }else {
+
+                        limit = (Integer.valueOf(sharedPreferenceActivity.getItem(Constant.DEPOSIT)) - 20000) * 3;
+
+                    }
                     loan_limit.setText("Your Loan Limit is " + limit);
                     progressbar.setVisibility(View.GONE);
                     //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
@@ -207,6 +214,8 @@ public double  interests,rate;
                         rate = Double.parseDouble(loanTypeModels.get(position).getRate());
                         time = loanTypeModels.get(position).getMax();
 
+                        Toast.makeText(context, "Maximum Duration for this loan is" +" "+ time + "months", Toast.LENGTH_SHORT).show();
+
 
                     }
 
@@ -244,8 +253,10 @@ public double  interests,rate;
                             duration.setText(time);
                         }else{
 
-                                interests = (Integer.valueOf(amount.getText().toString()) * ( Integer.valueOf(duration.getText().toString()) * rate )) + Integer.valueOf(amount.getText().toString());
-                                interest.setText("Tolal loan amount to be paid is"+interests);
+                                interests = (Integer.valueOf(amount.getText().toString()) * (rate )) + Integer.valueOf(amount.getText().toString());
+
+                                monthly = interests / Integer.valueOf(duration.getText().toString());
+                                interest.setText("Tolal loan amount is"+" " + interests +":" +" " + monthly + "To be paid monthly" );
                             }
                          }
                     }
@@ -323,7 +334,7 @@ public double  interests,rate;
 
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<NewLoanApplicationRes> call = service.SaveNewLoanCall("12345", loantype,amount, sharedPreferenceActivity.getItem(Constant.USER_DATA),duration, "");
+            Call<NewLoanApplicationRes> call = service.SaveNewLoanCall("12345", loantype,amount, sharedPreferenceActivity.getItem(Constant.USER_DATA),duration, String.valueOf(interests));
             call.enqueue(new Callback<NewLoanApplicationRes>() {
                 @Override
                 public void onResponse(Call<NewLoanApplicationRes> call, Response<NewLoanApplicationRes> response) {

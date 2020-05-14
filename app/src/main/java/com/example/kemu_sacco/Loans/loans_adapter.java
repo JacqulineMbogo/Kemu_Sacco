@@ -70,7 +70,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((loansView) holder).status.setText(" Status: " + " " +model.getStatus());
         ((loansView) holder).comment.setText(model.getComment());
 
-        ((loansView) holder).loancard.setOnClickListener(new View.OnClickListener() {
+/*        ((loansView) holder).loancard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -84,6 +84,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     Intent intent = new Intent(mContext, loan_payments_home.class);
                     intent.putExtra("application_id", model.getApplication_id());
                     intent.putExtra("loan_amount", model.getAmount());
+                    intent.putExtra("loan_type", model.getLoan_id());
                     mContext.startActivity(intent);
                 }else{
 
@@ -91,7 +92,7 @@ public class loans_adapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
                 }
             }
-        });
+        });*/
 
     }
 

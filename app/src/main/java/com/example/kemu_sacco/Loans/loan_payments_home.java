@@ -48,9 +48,9 @@ import retrofit2.Response;
 public class loan_payments_home extends AppCompatActivity {
 
     Context context;
-    String application_id, loan_amount;
-    Integer balance, overpaymnet;
-
+    String application_id, loan_amount,loan_type;
+    Double  overpaymnet;
+    Double balance;
     RecyclerView loanpayments_recycler;
     TextView total_payments;
     FloatingActionButton new_payment;
@@ -73,11 +73,17 @@ public class loan_payments_home extends AppCompatActivity {
         sharedPreferenceActivity = new SharedPreferenceActivity(context);
         application_id = intent.getExtras().getString("application_id");
         loan_amount= intent.getExtras().getString("loan_amount");
+        loan_type= intent.getExtras().getString("loan_type");
 
         loanpayments_recycler = findViewById(R.id.loanpayments_recycler);
         progressbar = findViewById(R.id.progressBar);
         new_payment = findViewById(R.id.new_payment);
         total_payments= findViewById(R.id.total_payment);
+
+        if(loan_type.equals("Short Term")){
+
+            findViewById(R.id.new_payment).setVisibility(View.VISIBLE);
+        }
 
 
         new_payment.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +166,7 @@ public class loan_payments_home extends AppCompatActivity {
 
                                 }else{
 
-                                    code.setError("Invalid code length. Should be 10 characters.");
+                                    code.setError("Invalid code length. Should be 10 characters and at least one number.");
                                     code.requestFocus();
 
                                 }
@@ -210,7 +216,7 @@ public class loan_payments_home extends AppCompatActivity {
 
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<MakeLoanPaymentRes> call = service.MakeLoanPaymentCall("12345", application_id,amount,sharedPreferenceActivity.getItem(Constant.USER_DATA),code);
+            Call<MakeLoanPaymentRes> call = service.MakeLoanPaymentCall("12345","34567",amount,sharedPreferenceActivity.getItem(Constant.USER_DATA),code);
             call.enqueue(new Callback<MakeLoanPaymentRes>() {
                 @Override
                 public void onResponse(Call<MakeLoanPaymentRes> call, Response<MakeLoanPaymentRes> response) {
@@ -258,7 +264,7 @@ public class loan_payments_home extends AppCompatActivity {
             progressbar.setVisibility(View.GONE);
             //  Log.e(TAG, "  user value "+ SharePreferenceUtils.getInstance().getString(Constant.USER_DATA));
             ServiceWrapper service = new ServiceWrapper(null);
-            Call<LoanPaymentsRes> call = service.LoanPaymentCall("1234", sharedPreferenceActivity.getItem(Constant.USER_DATA),application_id);
+            Call<LoanPaymentsRes> call = service.LoanPaymentCall("1234", sharedPreferenceActivity.getItem(Constant.USER_DATA),"");
 
             call.enqueue(new Callback<LoanPaymentsRes>() {
                 @Override
@@ -274,8 +280,8 @@ public class loan_payments_home extends AppCompatActivity {
 
                             if (response.body().getInformation().size()>0){
 
-                                balance = Integer.valueOf(loan_amount) - Integer.valueOf(response.body().getMsg());
-                                overpaymnet = Integer.valueOf(response.body().getMsg()) - Integer.valueOf(loan_amount);
+                                balance = Double.valueOf(loan_amount) - Double.valueOf(response.body().getMsg());
+                                overpaymnet = Double.valueOf(response.body().getMsg()) - Double.valueOf(loan_amount);
                                 progressbar.setVisibility(View.GONE);
 
                                         if(balance > 0) {
